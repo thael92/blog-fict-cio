@@ -671,6 +671,149 @@
                 margin: 0 auto 20px;
             }
         }
+        /* Estilo para o conteúdo secreto */
+.secret-header {
+    text-align: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--accent-color);
+    padding-bottom: 15px;
+}
+
+.secret-container {
+    background-color: #0a0a0a;
+    border: 1px solid var(--accent-color);
+    padding: 25px;
+    margin-top: 30px;
+    font-family: var(--font-code);
+}
+
+.terminal-output {
+    background-color: #000;
+    padding: 15px;
+    margin-bottom: 25px;
+    border-left: 3px solid var(--accent-color);
+}
+
+.terminal-line {
+    font-family: var(--font-code);
+    color: #0f0;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.terminal-line.success {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.secret-content-inner {
+    font-family: var(--font-main);
+    color: #ddd;
+}
+
+.secret-content-inner h3 {
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    font-family: var(--font-code);
+    font-size: 1.4rem;
+}
+
+.secret-image-container {
+    margin: 20px 0;
+    position: relative;
+}
+
+.secret-image {
+    width: 100%;
+    max-width: 600px;
+    border: 1px solid #333;
+    filter: contrast(120%) brightness(80%) grayscale(30%);
+}
+
+.image-caption {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 8px;
+    font-family: var(--font-code);
+}
+
+.secret-text p {
+    margin-bottom: 15px;
+    line-height: 1.7;
+}
+
+.warning-text {
+    color: var(--accent-color);
+    font-weight: bold;
+    border: 1px dashed var(--accent-color);
+    padding: 15px;
+    margin: 20px 0;
+    font-family: var(--font-code);
+    animation: pulse-warning 2s infinite;
+}
+
+@keyframes pulse-warning {
+    0% { background-color: rgba(185, 28, 28, 0); }
+    50% { background-color: rgba(185, 28, 28, 0.1); }
+    100% { background-color: rgba(185, 28, 28, 0); }
+}
+
+.evidence-files {
+    margin-top: 30px;
+    background-color: #111;
+    padding: 15px;
+    border-left: 3px solid #333;
+}
+
+.evidence-files h4 {
+    margin-bottom: 10px;
+    color: #bbb;
+}
+
+.evidence-files ul {
+    list-style-type: none;
+}
+
+.evidence-files li {
+    margin-bottom: 8px;
+}
+
+.evidence-link {
+    color: #4a9df8;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-family: var(--font-code);
+    font-size: 0.9rem;
+}
+
+.evidence-link:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+.countdown {
+    margin-top: 40px;
+    text-align: center;
+    padding: 15px;
+    background-color: #111;
+    border: 1px solid #333;
+}
+
+.countdown-text {
+    font-family: var(--font-code);
+    color: #bbb;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+}
+
+.countdown-timer {
+    font-family: var(--font-code);
+    color: var(--accent-color);
+    font-size: 2rem;
+    font-weight: bold;
+    animation: blink 1s infinite;
+}
+
     </style>
 </head>
 
@@ -841,6 +984,58 @@
                 </div>
             </div>
         </section>
+        <div id="secret-content" style="display: none;">
+            <div class="secret-header">
+                <h2 class="glitch" data-text="ARQUIVO_B: ACESSO CONCEDIDO">ARQUIVO_B: ACESSO CONCEDIDO</h2>
+                <div class="timestamp">Desclassificado: 15/07/2022</div>
+            </div>
+            
+            <div class="secret-container">
+                <div class="terminal-output">
+                    <div class="terminal-line">$ iniciando_recuperação_de_dados...</div>
+                    <div class="terminal-line">$ acessando_registros_pessoais...</div>
+                    <div class="terminal-line">$ descriptografando_arquivos...</div>
+                    <div class="terminal-line success">$ acesso_concedido</div>
+                </div>
+                
+                <div class="secret-content-inner">
+                    <h3>Relatório de Incidente: Lago Pinheiros (15/07/2022)</h3>
+                    
+                    <div class="secret-image-container">
+                        <img src="/api/placeholder/600/400" alt="Imagem do lago" class="secret-image">
+                        <div class="image-caption">Fotografia original capturada às 23:17 - 15/07/2022</div>
+                    </div>
+                    
+                    <div class="secret-text">
+                        <p>Eu estava apenas tirando fotos do lago à noite. Era para ser um projeto de fotografia noturna para a escola. Foi quando vi as luzes sob a água. Primeiro pensei que fosse reflexo da lua, mas não havia lua naquela noite.</p>
+                        
+                        <p>As luzes se moviam de forma não natural. Pulsavam. E então... algo emergiu. Não consigo descrever exatamente o que vi. Não era humano. Não era animal. Era algo... diferente.</p>
+                        
+                        <p>Tirei várias fotos antes de fugir. Quando cheguei em casa e olhei as imagens, havia uma figura ao fundo que não estava lá quando tirei a foto. Alguém me observando.</p>
+                        
+                        <p>Dois dias depois, as mensagens começaram. Eles querem as fotos. Dizem que vão me "silenciar" se eu mostrar para alguém. Mas não posso mais guardar isso só para mim.</p>
+                        
+                        <p class="warning-text">SE VOCÊ ESTÁ LENDO ISSO, SIGNIFICA QUE ALGO ACONTECEU COMIGO. AS COORDENADAS COMPLETAS ESTÃO NO VERSO DA FOTOGRAFIA ORIGINAL, ESCONDIDA EMBAIXO DO ASSOALHO DO MEU QUARTO. ENCONTRE-A.</p>
+                    </div>
+                    
+                    <div class="evidence-files">
+                        <h4>Arquivos Relacionados:</h4>
+                        <ul>
+                            <li><a href="#" class="evidence-link">Transcrição de chamada telefônica (18/07/2022)</a></li>
+                            <li><a href="#" class="evidence-link">Análise forense da fotografia</a></li>
+                            <li><a href="#" class="evidence-link">Registro de atividades anômalas no lago (2020-2023)</a></li>
+                            <li><a href="#" class="evidence-link">Lista de desaparecidos na região</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="countdown">
+                        <div class="countdown-text">TEMPO RESTANTE ANTES DO BLOQUEIO AUTOMÁTICO:</div>
+                        <div class="countdown-timer" id="countdown-timer">05:00</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
 
         <!-- Seção Arquivo Bloqueado -->
         <section id="locked" class="section">
@@ -904,9 +1099,12 @@
 const audioElement = document.getElementById('background-audio');
 const audioToggle = document.getElementById('audio-toggle');
 const audioControl = document.querySelector('.audio-control');
-
 // Função para iniciar o áudio com interação do usuário
 function setupAudio() {
+    // Variável para controlar se o áudio de fundo já foi iniciado
+    let backgroundAudioInitiated = false;
+    
+    // Controle de toggle para ligar/desligar o áudio
     audioToggle.addEventListener('click', function() {
         if (audioElement.paused) {
             audioElement.play();
@@ -916,40 +1114,74 @@ function setupAudio() {
             audioControl.classList.remove('audio-playing');
         }
     });
-    
-    // Efeito de áudio em elementos específicos
+   
+    // Efeito de áudio em elementos específicos com controle de tempo
     const triggerElements = document.querySelectorAll('.redacted, .file-item');
+    let lastGlitchTime = 0;
+    const glitchCooldown = 300; // 300ms entre reproduções
+    
+    // Criar o objeto de áudio uma única vez para reutilização
+    const glitchSound = new Audio('./audio/glitch-sound.mp3');
+    glitchSound.volume = 0.3;
+    
     triggerElements.forEach(element => {
         element.addEventListener('mouseenter', function() {
-            // Criar um efeito de áudio de "glitch" quando passar o mouse
-            const glitchSound = new Audio('./audio/glitch-sound.mp3');
-            glitchSound.volume = 0.2;
-            glitchSound.play();
+            const currentTime = new Date().getTime();
+            
+            // Verificar se passou tempo suficiente desde a última reprodução
+            if (currentTime - lastGlitchTime > glitchCooldown) {
+                // Reiniciar o áudio se já estiver tocando
+                glitchSound.currentTime = 0;
+                
+                // Reproduzir o som
+                const playPromise = glitchSound.play();
+                
+                // Lidar com possíveis erros de reprodução
+                if (playPromise !== undefined) {
+                    playPromise.catch(error => {
+                        console.log("Erro ao reproduzir efeito sonoro:", error);
+                    });
+                }
+                
+                // Atualizar o timestamp da última reprodução
+                lastGlitchTime = currentTime;
+            }
         });
     });
-    
+   
     // Iniciar áudio com efeito de fade-in quando o usuário interagir com a página
     document.body.addEventListener('click', function startAudioOnInteraction() {
-        if (audioElement.paused) {
+        // Verificar se o áudio já foi iniciado para evitar duplicação
+        if (!backgroundAudioInitiated && audioElement.paused) {
+            backgroundAudioInitiated = true;
+            
             audioElement.volume = 0;
-            audioElement.play();
+            const playPromise = audioElement.play();
             
-            // Fade in do volume
-            let volume = 0;
-            const fadeInterval = setInterval(function() {
-                volume += 0.05;
-                if (volume >= 0.3) {
-                    volume = 0.3; // Volume máximo de 30%
-                    clearInterval(fadeInterval);
-                }
-                audioElement.volume = volume;
-            }, 200);
-            
-            audioControl.classList.add('audio-playing');
+            // Lidar com possíveis erros de reprodução
+            if (playPromise !== undefined) {
+                playPromise
+                    .then(() => {
+                        // Fade in do volume
+                        let volume = 0;
+                        const fadeInterval = setInterval(function() {
+                            volume += 0.05;
+                            if (volume >= 0.3) {
+                                volume = 0.3; // Volume máximo de 30%
+                                clearInterval(fadeInterval);
+                            }
+                            audioElement.volume = volume;
+                        }, 200);
+                        
+                        audioControl.classList.add('audio-playing');
+                    })
+                    .catch(error => {
+                        console.log("Erro ao reproduzir áudio de fundo:", error);
+                        backgroundAudioInitiated = false; // Resetar flag se houver erro
+                    });
+            }
         }
-        // Remover este listener após a primeira interação
-        document.body.removeEventListener('click', startAudioOnInteraction);
-    }, { once: true });
+    });
 }
 
 // Inicializar áudio
@@ -1024,20 +1256,103 @@ setupAudio();
             });
 
             // Verificação de senha
-            document.getElementById('password-submit').addEventListener('click', function () {
-                const password = document.getElementById('password-field').value;
-                const accessDenied = document.getElementById('access-denied');
+           // Verificação de senha
+document.getElementById('password-submit').addEventListener('click', function() {
+    const password = document.getElementById('password-field').value;
+    const accessDenied = document.getElementById('access-denied');
+    const secretContent = document.getElementById('secret-content');
+    const passwordForm = document.querySelector('.password-form');
+    
+    // Senha correta: 15072022
+    if (password === '15072022') {
+        // Efeito de acesso concedido
+        accessDenied.textContent = "ACESSO CONCEDIDO. CARREGANDO ARQUIVOS...";
+        accessDenied.style.color = "#0f0";
+        accessDenied.style.display = "block";
+        
+        // Simular carregamento
+        setTimeout(() => {
+            // Esconder formulário de senha
+            passwordForm.style.display = 'none';
+            
+            // Mostrar conteúdo secreto
+            secretContent.style.display = 'block';
+            
+            // Iniciar contagem regressiva
+            startCountdown();
+            
+            // Efeito de digitação para as linhas do terminal
+            typeTerminalLines();
+        }, 2000);
+    } else {
+        accessDenied.style.display = 'block';
+        setTimeout(() => {
+            accessDenied.style.display = 'none';
+        }, 3000);
+    }
+});
 
-                // Senha correta: 15072022 (exemplo)
-                if (password === '15072022') {
-                    window.location.href = 'arquivo_secreto.html';
+// Função para contagem regressiva
+function startCountdown() {
+    const countdownElement = document.getElementById('countdown-timer');
+    let minutes = 5;
+    let seconds = 0;
+    
+    const countdownInterval = setInterval(() => {
+        if (seconds === 0) {
+            if (minutes === 0) {
+                clearInterval(countdownInterval);
+                // Redirecionar ou esconder o conteúdo quando o tempo acabar
+                document.getElementById('secret-content').style.display = 'none';
+                document.querySelector('.password-form').style.display = 'block';
+                document.getElementById('access-denied').textContent = "SESSÃO EXPIRADA. ACESSO BLOQUEADO.";
+                document.getElementById('access-denied').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('access-denied').style.display = 'none';
+                }, 3000);
+                return;
+            }
+            minutes--;
+            seconds = 59;
+        } else {
+            seconds--;
+        }
+        
+        // Formatar o tempo
+        const formattedMinutes = String(minutes).padStart(2, '0');
+        const formattedSeconds = String(seconds).padStart(2, '0');
+        countdownElement.textContent = `${formattedMinutes}:${formattedSeconds}`;
+        
+        // Efeito de urgência quando o tempo estiver acabando
+        if (minutes === 0 && seconds <= 30) {
+            countdownElement.style.color = '#ff0000';
+            countdownElement.style.animation = 'blink 0.5s infinite';
+        }
+    }, 1000);
+}
+
+// Função para efeito de digitação nas linhas do terminal
+function typeTerminalLines() {
+    const terminalLines = document.querySelectorAll('.terminal-line');
+    
+    terminalLines.forEach((line, index) => {
+        const text = line.textContent;
+        line.textContent = '';
+        
+        setTimeout(() => {
+            let charIndex = 0;
+            const typingInterval = setInterval(() => {
+                if (charIndex < text.length) {
+                    line.textContent += text.charAt(charIndex);
+                    charIndex++;
                 } else {
-                    accessDenied.style.display = 'block';
-                    setTimeout(() => {
-                        accessDenied.style.display = 'none';
-                    }, 3000);
+                    clearInterval(typingInterval);
                 }
-            });
+            }, 30);
+        }, index * 1000);
+    });
+}
+
 
             // Itens de arquivo
             const fileItems = document.querySelectorAll('.file-item');
