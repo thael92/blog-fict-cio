@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blair Sinclair | Diário Pessoal</title>
+    <style>
+        /* Fontes */
+        @import url('https://fonts.googleapis.com/css2?family=Shadows+Into+Light&family=Special+Elite&family=Source+Code+Pro:wght@400;700&display=swap');
+
+        /* Variáveis */
+        :root {
+            --background-color: #0a0a0a;
+            --text-color: #c8c8c8;
+            --accent-color: #b91c1c;
+            --secondary-color: #333;
+            --glitch-color-1: rgba(255, 0, 0, 0.2);
+            --glitch-color-2: rgba(0, 255, 255, 0.2);
+            --diary-bg: #111;
+            --font-main: 'Special Elite', cursive;
+            --font-diary: 'Shadows Into Light', cursive;
+            --font-code: 'Source Code Pro', monospace;
+        }
+
+        /* Reset Básico */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: var(--font-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGQAAABkCAYAAABw4pVUAAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAB3RJTUUH4AkFCQsQNktxSQAAAB1pVFh0Q29tbWVudAAAAAAAQ3JlYXRlZCB3aXRoIEdJTVBkLmUHAAAEnklEQVR42u2dW0hUQRjHf643dMEsK7soZZcHpSKiIAqKgqCgCIKICnqoh4qil3rpoainyLqQlVlREBERERGRFBFBEREVkdHFLM3K1cx2e/h2OKw5Z87M7jk7s/t/4PDgcpz5vvnvfDO7MwfCw3KgDhgDjAb6AQOBdOCXX06BNqAdaAG+AU3AJ+AtcB/4EKZOpiIdnwlMA0qAImAiUODLWNioBT4Cb4A64BbwOIidLwSWAVuBNUBuAqx4AvgIXAUuAXeAP0noRyFQA2wG5gMpUd6fF+KAJrJ3rQTKgXJgDJCa4H4MAeYA+4HzQCPwS3Lfcf8aYBVQCfQJqB8pwCRgJ3DGX3i+x9iPbX7wVfLM/xQFXPFFwGbgLNAahT+TgGPAUXlWc8oO4C5wLLotaymwFtgHjEviXlUE7ASeBhxIOrAOWJFA+0Q/f3FpCCiQscAOYFPEhT4O7PUf2VHiHLDej2FpCPeX+bvP+RjGMA1YQHTxDNjmbxwSvb1kvn9IjGEsU4GdQFaEI64UmBvFAK/6x9iYxqTGHxYXBhDIKKA6Dt8djBH2AUeAHG0vPAFsjsVP7AAXUeEqoJwY5RxwLc5xbgd+awekHtgb73inGFuSdA9YHfe4xzvKge1agbwBTiXDAC/6m25TZOuPRuMB2QScNxlIHbA/WQZ4DthhONZrwA3TQTS5nHm6AlxIsgGeBy6bPkA/B5w0GUirvz0nGx+A6yYP0FXAZZOBZBBf5mAbnwzmbB3AaZOBTCT+lF+TbDaYbVUDh0wGMjMJNmm3+WYw4XgPrDQZSA0mckuLjnHAMVOBdAKHkjyH0qTRYNK5wmQgLcQfT4PYrDUYRxdwwGQgn4gvP7OIZ0CtwTg6gf0mA2lOgkDagPdxfv5Dg3F0+MGYDMSGPcQNYqsi3x7EmjIZiA2B1APPMJ9f7jcZiC0pia1+3jfWZCC2bJ22BJJuMpBOG0YElHPeBSJcIEIYJuQk4nw6BqQqYg2w+MgGRikOO+3+XbECWQDMU14cYEmEsUxWTHZbFIt1IIsBHQOaIoxlJqrUeG8I+9kBLFDGsLXXb+x5HacKPE/JKOVxGvWQoWO48uJOtN9DfFSl3XOj7VMlgWxQXqwFrhuKRVV+vlfv4vMMYLri4k5/RdvAJEUcbfsW8jSlmLS7THlxMzBM+4aCKNR8Bzzp5XsbFZtUg+LiKYo57kgNj611iov7KK5dqPhmUKg81KnpkJWhuHisYh77EFjXw9+GAeOU/d+xB9/KFPmIKz9RXFyK/gKrOT18Y4OyT2WKh8vKfl3v9rcM4JLi4mfAbfTxEXjZzYCGK3OsCT38V6ryOdLl+9kZyt1nriJB6g0Bgbwr8v39o4gjQ/nNxS6/zFOmwh0B+9EfmKCIY1AP30xSzBmP/EQtiEB0cZVVLFZRyBf2o/Wr44q4S/zP6Vfj/Z8MYwBwSDHffwRWJKhfE/2vKlf5ydvfLxZ5iu2uA1j0eP0KJZBCYLYi9e7NXr/rP4bXiv5/BcZH1IeZinPIE8ILuhL4C5VuRTbYmqmTAAAAAElFTkSuQmCC');
+        }
+
+        /* Controle de Áudio */
+.audio-control {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 999;
+}
+
+.audio-btn {
+    background-color: var(--accent-color);
+    color: #fff;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+}
+
+.audio-btn:hover {
+    transform: scale(1.1);
+    background-color: #8a1616;
+}
+
+.audio-on, .audio-off {
+    position: absolute;
+}
+
+.audio-off {
+    display: none;
+}
+
+.audio-playing .audio-on {
+    display: none;
+}
+
+.audio-playing .audio-off {
+    display: block;
+}
+
+
+        /* Efeito de Glitch para textos */
+        .glitch {
+            position: relative;
+            animation: glitch 3s infinite;
+        }
+
+        .glitch::before,
+        .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.8;
+        }
+
+        .glitch::before {
+            color: var(--glitch-color-1);
+            animation: glitch-effect 3s infinite;
+            clip-path: polygon(0 0, 100% 0, 100% 45%, 0 45%);
+            transform: translate(-2px, -2px);
+        }
+
+        .glitch::after {
+            color: var(--glitch-color-2);
+            animation: glitch-effect 2s infinite;
+            clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+            transform: translate(2px, 2px);
+        }
+
+        @keyframes glitch-effect {
+            0% {
+                transform: translate(0);
+            }
+
+            20% {
+                transform: translate(-3px, 3px);
+            }
+
+            40% {
+                transform: translate(-3px, -3px);
+            }
+
+            60% {
+                transform: translate(3px, 3px);
+            }
+
+            80% {
+                transform: translate(3px, -3px);
+            }
+
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: 0.05em 0 0 var(--glitch-color-1), -0.05em -0.025em 0 var(--glitch-color-2);
+            }
+
+            14% {
+                text-shadow: 0.05em 0 0 var(--glitch-color-1), -0.05em -0.025em 0 var(--glitch-color-2);
+            }
+
+            15% {
+                text-shadow: -0.05em -0.025em 0 var(--glitch-color-1), 0.025em 0.025em 0 var(--glitch-color-2);
+            }
+
+            49% {
+                text-shadow: -0.05em -0.025em 0 var(--glitch-color-1), 0.025em 0.025em 0 var(--glitch-color-2);
+            }
+
+            50% {
+                text-shadow: 0.025em 0.05em 0 var(--glitch-color-1), 0.05em 0 0 var(--glitch-color-2);
+            }
+
+            99% {
+                text-shadow: 0.025em 0.05em 0 var(--glitch-color-1), 0.05em 0 0 var(--glitch-color-2);
+            }
+
+            100% {
+                text-shadow: -0.025em 0 0 var(--glitch-color-1), -0.025em -0.025em 0 var(--glitch-color-2);
+            }
+        }
+
+        /* Container Principal */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            min-height: 100vh;
+        }
+
+        /* Navegação */
+        nav {
+            background-color: rgba(0, 0, 0, 0.7);
+            border-bottom: 1px solid var(--accent-color);
+            padding: 15px 0;
+            margin-bottom: 30px;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: var(--text-color);
+            text-decoration: none;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            padding: 5px 10px;
+            position: relative;
+        }
+
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--accent-color);
+            transition: width 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #fff;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Página Inicial */
+        .home-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+            text-align: center;
+        }
+
+        .home-content h1 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+            letter-spacing: 2px;
+        }
+
+        .main-quote {
+            font-size: 1.5rem;
+            max-width: 600px;
+            line-height: 1.8;
+            margin-bottom: 40px;
+            font-family: var(--font-diary);
+        }
+
+        .timestamp {
+            font-family: var(--font-code);
+            color: var(--accent-color);
+            margin-top: 30px;
+            border: 1px solid var(--accent-color);
+            padding: 10px 20px;
+            display: inline-block;
+            animation: blink 1.5s infinite;
+        }
+
+        @keyframes blink {
+
+            0%,
+            100% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0.7;
+            }
+        }
+
+        /* Diário */
+        .diary-container {
+            background-color: var(--diary-bg);
+            border: 1px solid #333;
+            padding: 30px;
+            font-family: var(--font-diary);
+            margin-bottom: 30px;
+            background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        .diary-entry {
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .diary-date {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            font-family: var(--font-code);
+        }
+
+        .diary-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            color: #ddd;
+        }
+
+        .redacted {
+            background-color: #000;
+            color: transparent;
+            padding: 0 5px;
+            cursor: pointer;
+            user-select: none;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .redacted:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Arquivos Vazados */
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .file-item {
+            border: 1px solid #333;
+            padding: 10px;
+            background-color: #111;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .file-item:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 10px rgba(185, 28, 28, 0.3);
+        }
+
+        .file-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            filter: grayscale(50%) contrast(120%);
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover .file-img {
+            filter: grayscale(20%) contrast(140%);
+        }
+
+        .file-caption {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #aaa;
+            font-family: var(--font-code);
+        }
+
+        .file-tag {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent-color);
+            color: #fff;
+            padding: 3px 8px;
+            font-size: 0.7rem;
+            font-family: var(--font-code);
+        }
+
+        /* Vídeos */
+        .video-container {
+            margin-bottom: 40px;
+        }
+
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 56.25%;
+            /* 16:9 aspect ratio */
+        }
+
+        .video-player {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: 2px solid #333;
+        }
+
+        .video-title {
+            margin: 10px 0;
+            font-family: var(--font-code);
+            color: #bbb;
+        }
+
+        .video-description {
+            color: #888;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* Arquivo Bloqueado */
+        .locked-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 60vh;
+        }
+
+        .password-form {
+            background-color: #111;
+            border: 1px solid var(--accent-color);
+            padding: 30px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .password-form h2 {
+            margin-bottom: 20px;
+            font-family: var(--font-code);
+            color: var(--accent-color);
+        }
+
+        .password-input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            background-color: #000;
+            border: 1px solid #333;
+            color: #0f0;
+            font-family: var(--font-code);
+            font-size: 1.1rem;
+        }
+
+        .password-input::placeholder {
+            color: #005500;
+        }
+
+        .password-submit {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-family: var(--font-code);
+            transition: all 0.3s ease;
+        }
+
+        .password-submit:hover {
+            background-color: #8a1616;
+        }
+
+        .access-denied {
+            color: var(--accent-color);
+            margin-top: 15px;
+            font-family: var(--font-code);
+            display: none;
+        }
+
+        /* Sobre Mim */
+        .about-container {
+            position: relative;
+            font-family: var(--font-main);
+            line-height: 1.8;
+        }
+
+        .about-container p {
+            margin-bottom: 20px;
+        }
+
+        .about-container h2 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            font-size: 1.8rem;
+        }
+
+        .profile-img {
+            float: right;
+            width: 200px;
+            height: 200px;
+            object-fit: cover;
+            margin: 0 0 20px 20px;
+            border: 1px solid #333;
+            filter: grayscale(70%) contrast(110%);
+        }
+
+        /* Efeito de Câmera */
+        .camera-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+        }
+
+        .camera-text {
+            color: var(--accent-color);
+            font-size: 2rem;
+            font-family: var(--font-code);
+            margin-bottom: 30px;
+            animation: blink 1s infinite;
+        }
+
+        .camera-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                opacity: 1;
+            }
+
+            50% {
+                transform: scale(1.2);
+                opacity: 0.7;
+            }
+
+            100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        /* WhatsApp Modal */
+        .whatsapp-modal {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #111;
+            padding: 30px;
+            border: 1px solid var(--accent-color);
+            z-index: 1001;
+            width: 90%;
+            max-width: 400px;
+            display: none;
+        }
+
+        .whatsapp-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .whatsapp-form h3 {
+            color: var(--accent-color);
+            margin-bottom: 20px;
+            text-align: center;
+            font-family: var(--font-code);
+        }
+
+        .whatsapp-input {
+            padding: 12px;
+            margin-bottom: 15px;
+            background-color: #000;
+            border: 1px solid #333;
+            color: #fff;
+            font-family: var(--font-code);
+        }
+
+        .whatsapp-submit {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            font-family: var(--font-code);
+            transition: all 0.3s ease;
+        }
+
+        .whatsapp-submit:hover {
+            background-color: #8a1616;
+        }
+
+        .whatsapp-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding: 20px 0;
+            border-top: 1px solid #333;
+            font-size: 0.8rem;
+            color: #666;
+            font-family: var(--font-code);
+        }
+
+        /* Efeitos de Glitch nas Imagens */
+        @keyframes img-glitch {
+            0% {
+                transform: translate(0);
+                filter: hue-rotate(0deg);
+            }
+
+            10% {
+                transform: translate(-5px, 5px);
+                filter: hue-rotate(20deg);
+            }
+
+            20% {
+                transform: translate(5px, -5px);
+                filter: hue-rotate(0deg);
+            }
+
+            30% {
+                transform: translate(0);
+                filter: hue-rotate(0deg);
+            }
+
+            100% {
+                transform: translate(0);
+                filter: hue-rotate(0deg);
+            }
+        }
+
+        .glitch-img:hover {
+            animation: img-glitch 0.5s infinite;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            nav ul li {
+                margin: 10px 0;
+            }
+
+            .home-content h1 {
+                font-size: 2rem;
+            }
+
+            .main-quote {
+                font-size: 1.2rem;
+            }
+
+            .files-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            }
+
+            .profile-img {
+                float: none;
+                display: block;
+                margin: 0 auto 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <body>
+        <audio id="background-audio" loop>
+            <source src="audio/horror-258261.mp3" type="audio/mpeg">
+            Seu navegador não suporta o elemento de áudio.
+        </audio>
+        <div class="audio-control">
+            <button id="audio-toggle" class="audio-btn">
+                <span class="audio-on">🔊</span>
+                <span class="audio-off">🔇</span>
+            </button>
+        </div>
+        
+        <div class="container">
+            <!-- resto do conteúdo -->
+    
+    <div class="container">
+        <nav>
+            <ul>
+                <li><a href="#home" class="nav-link active" data-section="home">Home</a></li>
+                <li><a href="#diary" class="nav-link" data-section="diary">Diário</a></li>
+                <li><a href="#files" class="nav-link" data-section="files">Arquivos Vazados</a></li>
+                <li><a href="#videos" class="nav-link" data-section="videos">Vídeos</a></li>
+                <li><a href="#locked" class="nav-link" data-section="locked">arquivo_b</a></li>
+                <li><a href="#about" class="nav-link" data-section="about">Sobre Mim</a></li>
+            </ul>
+        </nav>
+
+        <!-- Seção Home -->
+        <section id="home" class="section active">
+            <div class="home-content">
+                <h1 class="glitch" data-text="Blair Sinclair">Blair Sinclair</h1>
+                <p class="main-quote">"Se você está lendo isso, eu já não estou mais aqui. Talvez seja melhor assim.
+                    Alguém está observando. Alguém sempre esteve observando."</p>
+                <div class="timestamp">Último acesso: 12/04/2023 - 02:37:18</div>
+            </div>
+        </section>
+
+        <!-- Seção Diário -->
+        <section id="diary" class="section">
+            <h2>Meu Diário</h2>
+            <div class="diary-container">
+                <div class="diary-entry">
+                    <div class="diary-date">12/03/2023</div>
+                    <div class="diary-text">
+                        Ele estava lá novamente hoje. Parado do outro lado da rua quando saí da escola. Não consigo ver
+                        seu rosto, mas <span class="redacted" data-trigger="first-clue">sei que é ele</span>. Minha mãe
+                        não acredita em mim. Ninguém acredita. Preciso reunir provas.
+                    </div>
+                </div>
+
+                <div class="diary-entry">
+                    <div class="diary-date">25/03/2023</div>
+                    <div class="diary-text">
+                        Encontrei algo no meu quarto hoje. Uma <span class="redacted" data-trigger="second-clue">pequena
+                            câmera</span> escondida atrás da estante. Quem faria isso? Tirei fotos como evidência, mas
+                        não mostrei para ninguém ainda. Se alguém está me observando, preciso descobrir quem é primeiro.
+                    </div>
+                </div>
+
+                <div class="diary-entry">
+                    <div class="diary-date">02/04/2023</div>
+                    <div class="diary-text">
+                        As mensagens começaram a chegar. Números desconhecidos. Eles sabem sobre <span class="redacted"
+                            data-trigger="third-clue">o acidente do ano passado</span>. Como poderiam saber? Ninguém
+                        estava lá além de mim. E eu nunca contei a ninguém o que realmente aconteceu. Estou com medo.
+                    </div>
+                </div>
+
+                <div class="diary-entry">
+                    <div class="diary-date">10/04/2023</div>
+                    <div class="diary-text">
+                        Preciso guardar tudo em um lugar seguro. Criei um arquivo separado com todas as provas. Se algo
+                        acontecer comigo, pelo menos alguém poderá encontrar a verdade. A senha é <span class="redacted"
+                            data-trigger="password-hint">a data daquele dia</span>, eles nunca vão adivinhar.
+                    </div>
+                </div>
+
+                <div class="diary-entry">
+                    <div class="diary-date">12/04/2023</div>
+                    <div class="diary-text">
+                        Estou sendo seguida. Tenho certeza disso agora. Vou para a cabana hoje à noite. Preciso
+                        verificar se <span class="redacted" data-trigger="final-clue">as fotos ainda estão lá</span>. Se
+                        você está lendo isso, e eu não voltei... procure no lago. A verdade está lá.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Arquivos Vazados -->
+        <section id="files" class="section">
+            <h2>Arquivos Vazados</h2>
+            <div class="files-grid">
+                <div class="file-item" data-trigger="file-clue-1">
+                    <div class="file-tag">EVIDÊNCIA #1</div>
+                    <img src="/api/placeholder/400/320" alt="Mensagem anônima" class="file-img">
+                    <div class="file-caption">Screenshot de mensagem recebida em 28/03/2023</div>
+                </div>
+
+                <div class="file-item" data-trigger="file-clue-2">
+                    <div class="file-tag">EVIDÊNCIA #2</div>
+                    <img src="/api/placeholder/400/320" alt="Câmera encontrada" class="file-img">
+                    <div class="file-caption">Dispositivo encontrado no quarto (25/03/2023)</div>
+                </div>
+
+                <div class="file-item" data-trigger="file-clue-3">
+                    <div class="file-tag">EVIDÊNCIA #3</div>
+                    <img src="/api/placeholder/400/320" alt="Sombra na janela" class="file-img glitch-img">
+                    <div class="file-caption">Capturado da janela do meu quarto (05/04/2023)</div>
+                </div>
+
+                <div class="file-item" data-trigger="file-clue-4">
+                    <div class="file-tag">CONFIDENCIAL</div>
+                    <img src="/api/placeholder/400/320" alt="Mapa da floresta" class="file-img">
+                    <div class="file-caption">Mapa da área próxima ao lago (08/04/2023)</div>
+                </div>
+
+                <div class="file-item" data-trigger="file-clue-5">
+                    <div class="file-tag">EVIDÊNCIA #5</div>
+                    <img src="/api/placeholder/400/320" alt="Carta anônima" class="file-img">
+                    <div class="file-caption">Carta recebida sem remetente (09/04/2023)</div>
+                </div>
+
+                <div class="file-item" data-trigger="file-clue-6">
+                    <div class="file-tag">PESSOAL</div>
+                    <img src="/api/placeholder/400/320" alt="Diário antigo" class="file-img glitch-img">
+                    <div class="file-caption">Página do meu diário antigo (2022)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Vídeos -->
+        <section id="videos" class="section">
+            <h2>Vídeos</h2>
+
+            <div class="video-container">
+                <h3 class="video-title">Gravação da câmera de segurança - 01/04/2023</h3>
+                <p class="video-description">Capturado pela câmera de segurança da minha casa. Observe a sombra que
+                    aparece às 2:37.</p>
+                <div class="video-wrapper">
+                    <iframe class="video-player" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="video-container">
+                <h3 class="video-title">Gravação de voz - 07/04/2023</h3>
+                <p class="video-description">Áudio estranho capturado no meu celular durante a noite. Não lembro de ter
+                    gravado isso.</p>
+                <div class="video-wrapper">
+                    <iframe class="video-player" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+
+            <div class="video-container">
+                <h3 class="video-title">Última gravação - 11/04/2023</h3>
+                <p class="video-description">Gravei isso como precaução. Se algo acontecer comigo, esta é a verdade.</p>
+                <div class="video-wrapper">
+                    <iframe class="video-player" src="https://www.youtube.com/embed/dQw4w9WgXcQ" frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Arquivo Bloqueado -->
+        <section id="locked" class="section">
+            <div class="locked-container">
+                <div class="password-form">
+                    <h2>ARQUIVO RESTRITO</h2>
+                    <p>Este arquivo contém informações sensíveis. Digite a senha para acessar.</p>
+                    <input type="password" class="password-input" placeholder="SENHA" id="password-field">
+                    <button class="password-submit" id="password-submit">ACESSAR</button>
+                    <div class="access-denied" id="access-denied">ACESSO NEGADO. TENTATIVA REGISTRADA.</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Sobre Mim -->
+        <section id="about" class="section">
+            <div class="about-container">
+                <img src="/api/placeholder/400/400" alt="Blair Sinclair" class="profile-img">
+                <h2>Sobre Mim</h2>
+                <p>Meu nome é Blair Sinclair. Tenho 17 anos e moro em Pinheiros desde que nasci. Estudo no Colégio São
+                    Francisco e sempre fui considerada uma aluna exemplar. Pelo menos até o ano passado.</p>
+                <p>Sempre gostei de fotografia e documentar coisas. Meu pai me deu minha primeira câmera quando eu tinha
+                    10 anos. Desde então, tenho registrado tudo o que acho interessante ou estranho. E ultimamente,
+                    muitas coisas estranhas têm acontecido.</p>
+                <p>Comecei este blog como um diário digital, mas agora percebo que pode ser minha única chance de deixar
+                    um registro do que está acontecendo. Se algo acontecer comigo, pelo menos a verdade estará aqui.</p>
+                <p>Não sei quem está me observando ou por quê. Mas sei que começou depois daquele dia no lago. Depois do
+                    que vi. Depois do que <span class="redacted" data-trigger="about-clue">fotografei</span>.</p>
+                <p>Se você me conhece e está lendo isso, por favor, acredite em mim. Não estou inventando nada. E se eu
+                    desaparecer... você saberá por quê.</p>
+            </div>
+        </section>
+
+        <footer>
+            <p>Último acesso: 12/04/2023 - 02:37:18 | IP: 192.168.1.45 | Dispositivo: Windows NT 10.0</p>
+            <p>Este blog é mantido por Blair Sinclair. Todos os direitos reservados.</p>
+        </footer>
+    </div>
+
+    <!-- Efeito de Câmera -->
+    <div class="camera-overlay" id="camera-overlay">
+        <div class="camera-text">GRAVANDO...</div>
+        <div class="camera-circle"></div>
+    </div>
+
+    <!-- Modal WhatsApp -->
+    <div class="whatsapp-modal" id="whatsapp-modal">
+        <button class="whatsapp-close" id="whatsapp-close">&times;</button>
+        <form class="whatsapp-form">
+            <h3>Nova Mensagem</h3>
+            <input type="text" class="whatsapp-input" placeholder="De: Número Desconhecido" readonly>
+            <textarea class="whatsapp-input" rows="4"
+                readonly>Eu sei o que você fez no lago, Blair. As fotos não mentem. Você tem até amanhã para confessar, ou todos saberão.</textarea>
+            <button type="button" class="whatsapp-submit">Fechar</button>
+        </form>
+    </div>
+
+    <script>
+
+        // Controle de áudio
+const audioElement = document.getElementById('background-audio');
+const audioToggle = document.getElementById('audio-toggle');
+const audioControl = document.querySelector('.audio-control');
+
+// Função para iniciar o áudio com interação do usuário
+function setupAudio() {
+    audioToggle.addEventListener('click', function() {
+        if (audioElement.paused) {
+            audioElement.play();
+            audioControl.classList.add('audio-playing');
+        } else {
+            audioElement.pause();
+            audioControl.classList.remove('audio-playing');
+        }
+    });
+    
+    // Efeito de áudio em elementos específicos
+    const triggerElements = document.querySelectorAll('.redacted, .file-item');
+    triggerElements.forEach(element => {
+        element.addEventListener('mouseenter', function() {
+            // Criar um efeito de áudio de "glitch" quando passar o mouse
+            const glitchSound = new Audio('https://example.com/caminho-para-glitch-sound.mp3');
+            glitchSound.volume = 0.2;
+            glitchSound.play();
+        });
+    });
+    
+    // Iniciar áudio com efeito de fade-in quando o usuário interagir com a página
+    document.body.addEventListener('click', function startAudioOnInteraction() {
+        if (audioElement.paused) {
+            audioElement.volume = 0;
+            audioElement.play();
+            
+            // Fade in do volume
+            let volume = 0;
+            const fadeInterval = setInterval(function() {
+                volume += 0.05;
+                if (volume >= 0.3) {
+                    volume = 0.3; // Volume máximo de 30%
+                    clearInterval(fadeInterval);
+                }
+                audioElement.volume = volume;
+            }, 200);
+            
+            audioControl.classList.add('audio-playing');
+        }
+        // Remover este listener após a primeira interação
+        document.body.removeEventListener('click', startAudioOnInteraction);
+    }, { once: true });
+}
+
+// Inicializar áudio
+setupAudio();
+
+        // Navegação entre seções
+        document.addEventListener('DOMContentLoaded', function () {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            // Esconder todas as seções exceto a home
+            sections.forEach(section => {
+                if (section.id !== 'home') {
+                    section.style.display = 'none';
+                }
+            });
+
+            // Adicionar event listeners aos links de navegação
+            navLinks.forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    // Remover classe active de todos os links
+                    navLinks.forEach(l => l.classList.remove('active'));
+
+                    // Adicionar classe active ao link clicado
+                    this.classList.add('active');
+
+                    // Esconder todas as seções
+                    sections.forEach(section => {
+                        section.style.display = 'none';
+                    });
+
+                    // Mostrar a seção correspondente
+                    const targetSection = document.getElementById(this.getAttribute('data-section'));
+                    targetSection.style.display = 'block';
+                });
+            });
+
+            // Elementos redacted
+            const redactedElements = document.querySelectorAll('.redacted');
+            redactedElements.forEach(element => {
+                element.addEventListener('click', function () {
+                    const trigger = this.getAttribute('data-trigger');
+
+                    // Diferentes ações baseadas no trigger
+                    if (trigger === 'password-hint') {
+                        alert('Dica de senha: A data em que tudo mudou. Formato: DDMMAAAA');
+                    } else if (trigger === 'first-clue' || trigger === 'second-clue' || trigger === 'third-clue') {
+                        // Mostrar efeito de câmera
+                        const cameraOverlay = document.getElementById('camera-overlay');
+                        cameraOverlay.style.display = 'flex';
+
+                        // Esconder após 3 segundos
+                        setTimeout(() => {
+                            cameraOverlay.style.display = 'none';
+                        }, 3000);
+                    } else if (trigger === 'final-clue') {
+                        // Mostrar modal de WhatsApp
+                        document.getElementById('whatsapp-modal').style.display = 'block';
+                    }
+                });
+            });
+
+            // Fechar modal de WhatsApp
+            document.getElementById('whatsapp-close').addEventListener('click', function () {
+                document.getElementById('whatsapp-modal').style.display = 'none';
+            });
+
+            document.querySelector('.whatsapp-submit').addEventListener('click', function () {
+                document.getElementById('whatsapp-modal').style.display = 'none';
+            });
+
+            // Verificação de senha
+            document.getElementById('password-submit').addEventListener('click', function () {
+                const password = document.getElementById('password-field').value;
+                const accessDenied = document.getElementById('access-denied');
+
+                // Senha correta: 15072022 (exemplo)
+                if (password === '15072022') {
+                    window.location.href = 'arquivo_secreto.html';
+                } else {
+                    accessDenied.style.display = 'block';
+                    setTimeout(() => {
+                        accessDenied.style.display = 'none';
+                    }, 3000);
+                }
+            });
+
+            // Itens de arquivo
+            const fileItems = document.querySelectorAll('.file-item');
+            fileItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    const trigger = this.getAttribute('data-trigger');
+
+                    if (trigger === 'file-clue-1') {
+                        // Mostrar modal de WhatsApp
+                        document.getElementById('whatsapp-modal').style.display = 'block';
+                    } else if (trigger === 'file-clue-4') {
+                        alert('Coordenadas encontradas: 43°17\'21.4"N 73°59\'35.6"W');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>
