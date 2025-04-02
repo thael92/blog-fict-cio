@@ -1466,6 +1466,278 @@
     border-top: 1px dashed #ccc;
 }
 
+/* Estilos responsivos para todos os modais */
+@media (max-width: 992px) {
+    .modal-content, 
+    .letter-content {
+        width: 95%;
+        margin: 10% auto;
+    }
+    
+    .forensic-body,
+    .image-container {
+        display: flex;
+        flex-direction: column;
+    }
+    
+    .image-container {
+        gap: 15px;
+    }
+    
+    .analysis-section {
+        margin-top: 15px;
+    }
+    
+    .letter-paper {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .modal-content, 
+    .letter-content {
+        width: 95%;
+        margin: 15% auto;
+        padding: 15px;
+    }
+    
+    .phone-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .transcript-container {
+        height: 350px;
+    }
+    
+    .audio-controls {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .play-button {
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: center;
+    }
+    
+    .audio-progress {
+        width: 100%;
+    }
+    
+    .letter-paper {
+        padding: 25px 20px;
+    }
+    
+    .letter-body {
+        font-size: 1.1rem;
+    }
+    
+    .police-stamp {
+        position: relative;
+        display: inline-block;
+        margin-top: 10px;
+        right: auto;
+        top: auto;
+    }
+    
+    .missing-header {
+        text-align: center;
+    }
+    
+    .search-bar {
+        flex-direction: column;
+    }
+    
+    #missing-search {
+        margin-bottom: 10px;
+    }
+    
+    .search-btn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 576px) {
+    .modal-content, 
+    .letter-content {
+        width: 95%;
+        margin: 20% auto 5%;
+        padding: 10px;
+    }
+    
+    .close-modal,
+    .close-letter {
+        top: 5px;
+        right: 10px;
+        font-size: 24px;
+    }
+    
+    .phone-title {
+        font-size: 1rem;
+        padding-right: 20px;
+    }
+    
+    .transcript-container {
+        height: 300px;
+        padding: 10px;
+    }
+    
+    .transcript-line {
+        font-size: 0.8rem;
+    }
+    
+    .forensic-header h2,
+    .missing-header h2 {
+        font-size: 1.2rem;
+    }
+    
+    .forensic-content,
+    .missing-content {
+        padding: 15px;
+    }
+    
+    .analysis-section {
+        padding: 15px;
+    }
+    
+    .analysis-section h3 {
+        font-size: 1.1rem;
+    }
+    
+    .analysis-details p,
+    .analysis-results li {
+        font-size: 0.9rem;
+    }
+    
+    .letter-paper {
+        padding: 20px 15px;
+    }
+    
+    .letter-body {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+    
+    .letter-date {
+        font-size: 0.8rem;
+    }
+    
+    .letter-signature {
+        margin-top: 30px;
+    }
+    
+    .reveal-button {
+        width: 100%;
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+    
+    .missing-table th,
+    .missing-table td {
+        padding: 6px 8px;
+        font-size: 0.85rem;
+    }
+    
+    .missing-table-container {
+        max-height: 250px;
+    }
+    
+    .handwritten-note {
+        font-size: 1rem;
+    }
+}
+
+/* Ajustes específicos para dispositivos muito pequenos */
+@media (max-width: 400px) {
+    .modal-content, 
+    .letter-content {
+        margin: 25% auto 5%;
+    }
+    
+    .letter-paper {
+        padding: 15px 10px;
+    }
+    
+    .letter-body {
+        font-size: 0.95rem;
+    }
+    
+    .transcript-container {
+        height: 250px;
+    }
+    
+    .phone-details {
+        font-size: 0.75rem;
+    }
+    
+    .forensic-ref,
+    .missing-subtitle {
+        font-size: 0.8rem;
+    }
+    
+    .analysis-conclusion {
+        padding: 10px;
+    }
+    
+    .missing-notes {
+        padding: 10px;
+    }
+    
+    .note-content p {
+        font-size: 0.85rem;
+    }
+}
+
+/* Ajustes para orientação paisagem em dispositivos móveis */
+@media (max-height: 500px) and (orientation: landscape) {
+    .modal-content, 
+    .letter-content {
+        margin: 5% auto;
+        max-height: 90vh;
+    }
+    
+    .transcript-container {
+        height: 150px;
+    }
+    
+    .letter-paper {
+        max-height: 70vh;
+        overflow-y: auto;
+    }
+    
+    .missing-table-container {
+        max-height: 150px;
+    }
+}
+
+/* Ajustes para telas muito grandes */
+@media (min-width: 1600px) {
+    .modal-content {
+        max-width: 1000px;
+    }
+    
+    .letter-content {
+        max-width: 800px;
+    }
+    
+    .transcript-container {
+        height: 500px;
+    }
+    
+    .letter-paper {
+        padding: 50px;
+    }
+    
+    .letter-body {
+        font-size: 1.3rem;
+    }
+    
+    .missing-table-container {
+        max-height: 400px;
+    }
+}
+
+
 
 
     </style>
