@@ -813,6 +813,101 @@
     font-weight: bold;
     animation: blink 1s infinite;
 }
+/* Modal do Mapa */
+.map-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: auto;
+}
+
+.map-modal-content {
+    background-color: #111;
+    margin: 5% auto;
+    padding: 30px;
+    border: 1px solid var(--accent-color);
+    width: 90%;
+    max-width: 800px;
+    position: relative;
+    animation: glitch-modal 0.5s ease;
+}
+
+.close-map-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-map-modal:hover,
+.close-map-modal:focus {
+    color: var(--accent-color);
+    text-decoration: none;
+}
+
+.map-modal-content h3 {
+    color: var(--accent-color);
+    margin-bottom: 20px;
+    font-family: var(--font-code);
+    text-align: center;
+}
+
+.coordinates-display {
+    font-family: var(--font-code);
+    text-align: center;
+    font-size: 1.2rem;
+    color: #0f0;
+    margin-bottom: 20px;
+    padding: 10px;
+    background-color: #000;
+    border: 1px solid #333;
+    letter-spacing: 2px;
+}
+
+.map-container {
+    margin-bottom: 20px;
+    border: 1px solid #333;
+    position: relative;
+    overflow: hidden;
+}
+
+.map-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(rgba(185, 28, 28, 0.1), transparent);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.map-notes {
+    font-family: var(--font-main);
+    color: #ddd;
+    padding: 15px;
+    background-color: #0a0a0a;
+    border-left: 3px solid var(--accent-color);
+}
+
+.map-notes p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.map-notes .warning-text {
+    color: var(--accent-color);
+    font-weight: bold;
+    font-family: var(--font-code);
+}
+
 
     </style>
 </head>
@@ -912,25 +1007,25 @@
             <div class="files-grid">
                 <div class="file-item" data-trigger="file-clue-1">
                     <div class="file-tag">EVIDÊNCIA #1</div>
-                    <img src="/api/placeholder/400/320" alt="Mensagem anônima" class="file-img">
+                    <img src="img/menssagem-recebida.png" alt="Mensagem anônima" class="file-img">
                     <div class="file-caption">Screenshot de mensagem recebida em 28/03/2023</div>
                 </div>
 
                 <div class="file-item" data-trigger="file-clue-2">
                     <div class="file-tag">EVIDÊNCIA #2</div>
-                    <img src="/api/placeholder/400/320" alt="Câmera encontrada" class="file-img">
+                    <img src="img/camera-quarto.png" alt="Câmera encontrada" class="file-img">
                     <div class="file-caption">Dispositivo encontrado no quarto (25/03/2023)</div>
                 </div>
 
                 <div class="file-item" data-trigger="file-clue-3">
                     <div class="file-tag">EVIDÊNCIA #3</div>
-                    <img src="/api/placeholder/400/320" alt="Sombra na janela" class="file-img glitch-img">
+                    <img src="img/sombra na  janela.png" alt="Sombra na janela" class="file-img glitch-img">
                     <div class="file-caption">Capturado da janela do meu quarto (05/04/2023)</div>
                 </div>
 
                 <div class="file-item" data-trigger="file-clue-4">
                     <div class="file-tag">CONFIDENCIAL</div>
-                    <img src="/api/placeholder/400/320" alt="Mapa da floresta" class="file-img">
+                    <img src="img/mapa-localizacao.png" alt="Mapa da floresta" class="file-img">
                     <div class="file-caption">Mapa da área próxima ao lago (08/04/2023)</div>
                 </div>
 
@@ -942,7 +1037,7 @@
 
                 <div class="file-item" data-trigger="file-clue-6">
                     <div class="file-tag">PESSOAL</div>
-                    <img src="/api/placeholder/400/320" alt="Diário antigo" class="file-img glitch-img">
+                    <img src="img/pagina-diario.png" alt="Diário antigo" class="file-img glitch-img">
                     <div class="file-caption">Página do meu diário antigo (2022)</div>
                 </div>
             </div>
@@ -957,7 +1052,7 @@
                 <p class="video-description">Capturado pela câmera de segurança da minha casa. Observe a sombra que
                     aparece às 2:37.</p>
                 <div class="video-wrapper">
-                    <iframe class="video-player" src="https://youtu.be/5wDXCeOBViA?si=OQZkESOnk5py8uf1" frameborder="0"
+                    <iframe class="video-player" src="videos/videoplayback.mp4" frameborder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen></iframe>
                 </div>
@@ -1355,21 +1450,71 @@ function typeTerminalLines() {
 
 
             // Itens de arquivo
-            const fileItems = document.querySelectorAll('.file-item');
-            fileItems.forEach(item => {
-                item.addEventListener('click', function () {
-                    const trigger = this.getAttribute('data-trigger');
+const fileItems = document.querySelectorAll('.file-item');
+const mapModal = document.getElementById('map-modal');
+const closeMapModal = document.querySelector('.close-map-modal');
 
-                    if (trigger === 'file-clue-1') {
-                        // Mostrar modal de WhatsApp
-                        document.getElementById('whatsapp-modal').style.display = 'block';
-                    } else if (trigger === 'file-clue-4') {
-                        alert('Coordenadas encontradas: 43°17\'21.4"N 73°59\'35.6"W');
-                    }
-                });
-            });
+fileItems.forEach(item => {
+    item.addEventListener('click', function () {
+        const trigger = this.getAttribute('data-trigger');
+
+        if (trigger === 'file-clue-1') {
+            // Mostrar modal de WhatsApp
+            document.getElementById('whatsapp-modal').style.display = 'block';
+        } else if (trigger === 'file-clue-4') {
+            // Mostrar modal do mapa
+            mapModal.style.display = 'block';
+            
+            // Reproduzir som de descoberta se disponível
+            if (window.glitchSound) {
+                glitchSound.currentTime = 0;
+                glitchSound.play().catch(e => console.log("Erro ao reproduzir som:", e));
+            }
+            
+            // Efeito de glitch no modal
+            const modalContent = document.querySelector('.map-modal-content');
+            modalContent.style.animation = 'none';
+            setTimeout(() => {
+                modalContent.style.animation = 'glitch-modal 0.5s ease';
+            }, 10);
+        }
+    });
+});
+
+// Fechar o modal do mapa quando clicar no X
+if (closeMapModal) {
+    closeMapModal.addEventListener('click', function() {
+        mapModal.style.display = 'none';
+    });
+}
+
+// Fechar o modal do mapa quando clicar fora dele
+window.addEventListener('click', function(event) {
+    if (event.target === mapModal) {
+        mapModal.style.display = 'none';
+    }
+});
+
+
         });
     </script>
+
+    <!-- Modal do Mapa -->
+<div id="map-modal" class="map-modal">
+    <div class="map-modal-content">
+        <span class="close-map-modal">&times;</span>
+        <h3 class="glitch" data-text="LOCALIZAÇÃO ENCONTRADA">LOCALIZAÇÃO ENCONTRADA</h3>
+        <div class="coordinates-display">43°17'21.4"N 73°59'35.6"W</div>
+        <div class="map-container">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d21931.756553552896!2d-73.99460114586617!3d43.29190946351034!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zNDPCsDE3JzIxLjQiTiA3M8KwNTknMzUuNiJX!5e1!3m2!1spt-BR!2sbr!4v1743610286595!5m2!1spt-BR!2sbr" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        </div>
+        <div class="map-notes">
+            <p class="warning-text">AVISO: Esta localização está associada a múltiplos desaparecimentos nos últimos 5 anos.</p>
+                
+        </div>
+    </div>
+</div>
+
 </body>
 
 </html>
