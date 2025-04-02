@@ -922,7 +922,7 @@ function setupAudio() {
     triggerElements.forEach(element => {
         element.addEventListener('mouseenter', function() {
             // Criar um efeito de áudio de "glitch" quando passar o mouse
-            const glitchSound = new Audio('https://example.com/caminho-para-glitch-sound.mp3');
+            const glitchSound = new Audio('./audio/glitch-sound.mp3');
             glitchSound.volume = 0.2;
             glitchSound.play();
         });
