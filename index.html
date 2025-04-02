@@ -907,6 +907,116 @@
     font-weight: bold;
     font-family: var(--font-code);
 }
+/* Modal da Carta */
+.letter-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    overflow: auto;
+}
+
+.letter-content {
+    background-color: #111;
+    margin: 5% auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 600px;
+    position: relative;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+}
+
+.close-letter {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-letter:hover {
+    color: var(--accent-color);
+}
+
+.letter-paper {
+    background-color: #f8f8e8;
+    padding: 40px;
+    color: #333;
+    font-family: var(--font-diary);
+    position: relative;
+    transition: all 0.5s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    background-image: url('data:image/png;base64,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');
+}
+
+.letter-paper.uv-light {
+    background-color: #1a1a2e;
+    color: #ddd;
+    box-shadow: 0 0 20px rgba(80, 0, 200, 0.5);
+}
+
+.letter-header {
+    margin-bottom: 30px;
+}
+
+.letter-date {
+    text-align: right;
+    font-size: 0.9rem;
+}
+
+.letter-body {
+    line-height: 1.8;
+    font-size: 1.2rem;
+}
+
+.letter-text {
+    margin-bottom: 20px;
+}
+
+.letter-signature {
+    margin-top: 40px;
+    text-align: right;
+    font-style: italic;
+}
+
+.hidden-text {
+    color: transparent;
+    transition: color 1.5s ease;
+}
+
+.letter-paper.uv-light .hidden-text.revealed {
+    color: #7b68ee; /* Cor púrpura fluorescente */
+    text-shadow: 0 0 5px rgba(123, 104, 238, 0.7);
+}
+
+.letter-footer {
+    margin-top: 40px;
+    text-align: center;
+}
+
+.reveal-button {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    font-family: var(--font-code);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.reveal-button:hover {
+    background-color: var(--accent-color);
+}
+
+.letter-paper.uv-light .reveal-button {
+    background-color: #7b68ee;
+}
+
+
 
 
     </style>
@@ -1031,7 +1141,7 @@
 
                 <div class="file-item" data-trigger="file-clue-5">
                     <div class="file-tag">EVIDÊNCIA #5</div>
-                    <img src="/api/placeholder/400/320" alt="Carta anônima" class="file-img">
+                    <img src="img/anonimo.png" alt="Carta anônima" class="file-img">
                     <div class="file-caption">Carta recebida sem remetente (09/04/2023)</div>
                 </div>
 
@@ -1496,6 +1606,8 @@ window.addEventListener('click', function(event) {
 });
 
 
+
+
         });
     </script>
 
@@ -1510,10 +1622,96 @@ window.addEventListener('click', function(event) {
         </div>
         <div class="map-notes">
             <p class="warning-text">AVISO: Esta localização está associada a múltiplos desaparecimentos nos últimos 5 anos.</p>
-                
+
         </div>
     </div>
 </div>
+<!-- Modal da Carta -->
+<div id="letter-modal" class="letter-modal">
+    <div class="letter-content">
+        <span class="close-letter">&times;</span>
+        <div class="letter-paper">
+            <div class="letter-header">
+                <div class="letter-date">09/04/2023</div>
+            </div>
+            <div class="letter-body">
+                <p class="letter-text">Cara Blair,</p>
+                <p class="letter-text">Sei que você tem me observado no lago. <span class="hidden-text">Eu também tenho observado você.</span></p>
+                <p class="letter-text">As fotos que você tirou em julho passado <span class="hidden-text">mostram algo que não deveria ter sido visto.</span></p>
+                <p class="letter-text">Sugiro que pare de investigar. <span class="hidden-text">Eles já sabem quem você é.</span></p>
+                <p class="letter-text">Não confie em ninguém. <span class="hidden-text">Especialmente naqueles que dizem querer te ajudar.</span></p>
+                <p class="letter-text hidden-text">Encontre-me no lago à meia-noite de 15/04 se quiser saber a verdade.</p>
+                <p class="letter-text hidden-text">Traga as fotos originais.</p>
+                <div class="letter-signature hidden-text">Um amigo</div>
+            </div>
+            <div class="letter-footer">
+                <button id="reveal-button" class="reveal-button">Examinar com luz UV</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Selecionar todos os itens de arquivo
+        const fileItems = document.querySelectorAll('.file-item');
+        
+        // Adicionar event listeners para cada item
+        fileItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const trigger = this.getAttribute('data-trigger');
+                
+                if (trigger === 'file-clue-1') {
+                    // Mostrar modal de WhatsApp
+                    document.getElementById('whatsapp-modal').style.display = 'block';
+                } else if (trigger === 'file-clue-4') {
+                    // Mostrar alerta com coordenadas
+                    alert('Coordenadas encontradas: 43°17\'21.4"N 73°59\'35.6"W');
+                } else if (trigger === 'file-clue-5') {
+                    // Mostrar modal da carta
+                    document.getElementById('letter-modal').style.display = 'block';
+                }
+            });
+        });
+        
+        // Fechar o modal da carta quando clicar no X
+        const closeLetterBtn = document.querySelector('.close-letter');
+        if (closeLetterBtn) {
+            closeLetterBtn.addEventListener('click', function() {
+                document.getElementById('letter-modal').style.display = 'none';
+            });
+        }
+        
+        // Fechar o modal da carta quando clicar fora dele
+        window.addEventListener('click', function(event) {
+            const letterModal = document.getElementById('letter-modal');
+            if (event.target === letterModal) {
+                letterModal.style.display = 'none';
+            }
+        });
+        
+        // Botão para revelar texto oculto
+        const revealButton = document.getElementById('reveal-button');
+        if (revealButton) {
+            revealButton.addEventListener('click', function() {
+                const letterPaper = document.querySelector('.letter-paper');
+                letterPaper.classList.add('uv-light');
+                
+                // Revelar texto oculto gradualmente
+                const hiddenTexts = document.querySelectorAll('.hidden-text');
+                hiddenTexts.forEach((text, index) => {
+                    setTimeout(() => {
+                        text.classList.add('revealed');
+                    }, 500 + (index * 800));
+                });
+                
+                // Mudar o texto do botão
+                this.textContent = 'Texto revelado!';
+                this.disabled = true;
+            });
+        }
+    });
+</script>
+
 
 </body>
 
