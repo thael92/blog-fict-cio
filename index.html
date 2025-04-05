@@ -2184,6 +2184,28 @@
 .no-video .fullscreen-video {
     display: none;
 }
+/* Desabilitar interações com o vídeo */
+.fullscreen-video {
+    pointer-events: none; /* Desabilita interações com o mouse */
+    user-select: none; /* Previne seleção de texto */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Garantir que o vídeo não possa ser pausado em dispositivos móveis */
+@media (max-width: 768px) {
+    .fullscreen-video::-webkit-media-controls {
+        display: none !important;
+    }
+    
+    .fullscreen-video::-webkit-media-controls-play-button,
+    .fullscreen-video::-webkit-media-controls-start-playback-button {
+        opacity: 0;
+        pointer-events: none;
+        width: 0;
+    }
+}
 
     </style>
 </head>
