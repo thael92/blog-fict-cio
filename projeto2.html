@@ -1,0 +1,3050 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blair Sinclair</title>
+    <style>
+        /* Variáveis de cores */
+        :root {
+            --purple-dark: #2a0a4a;
+            --purple-medium: #4a1a82;
+            --purple-light: #9370DB;
+            --black: #000000;
+            --dark-gray: #1e1e1e;
+            --white: #f0f0f0;
+        }
+
+        /* Reset e estilos gerais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+        }
+
+        body {
+            background-color: var(--dark-gray);
+            color: var(--white);
+            overflow: hidden;
+            height: 100vh;
+            cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' style='fill:white'><circle cx='8' cy='8' r='4'/></svg>") 8 8, auto;
+        }
+
+        /* Efeito de linha de monitor antigo */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(transparent, transparent 50%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.1));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 999;
+            animation: scanlines 0.5s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes scanlines {
+            0% {
+                background-position: 0 0;
+            }
+
+            100% {
+                background-position: 0 4px;
+            }
+        }
+
+        @keyframes flicker {
+            0% {
+                opacity: 0.93;
+            }
+
+            5% {
+                opacity: 0.95;
+            }
+
+            10% {
+                opacity: 0.9;
+            }
+
+            15% {
+                opacity: 0.95;
+            }
+
+            20% {
+                opacity: 0.93;
+            }
+
+            25% {
+                opacity: 0.95;
+            }
+
+            30% {
+                opacity: 0.9;
+            }
+
+            35% {
+                opacity: 0.95;
+            }
+
+            40% {
+                opacity: 0.92;
+            }
+
+            45% {
+                opacity: 0.94;
+            }
+
+            50% {
+                opacity: 0.95;
+            }
+
+            55% {
+                opacity: 0.94;
+            }
+
+            60% {
+                opacity: 0.94;
+            }
+
+            65% {
+                opacity: 0.93;
+            }
+
+            70% {
+                opacity: 0.95;
+            }
+
+            75% {
+                opacity: 0.93;
+            }
+
+            80% {
+                opacity: 0.94;
+            }
+
+            85% {
+                opacity: 0.93;
+            }
+
+            90% {
+                opacity: 0.95;
+            }
+
+            95% {
+                opacity: 0.93;
+            }
+
+            100% {
+                opacity: 0.95;
+            }
+        }
+
+        /* Área de trabalho */
+        .desktop {
+            width: 100%;
+            height: 100vh;
+            background-color: var(--dark-gray);
+            position: relative;
+            overflow: hidden;
+            animation: flicker 10s infinite;
+            padding: 20px;
+            background-image: radial-gradient(circle at center center,
+                    rgba(74, 26, 130, 0.3),
+                    rgba(0, 0, 0, 0.4));
+        }
+
+        /* Barra superior */
+        .taskbar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 30px;
+            background-color: var(--purple-dark);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 15px;
+            border-bottom: 1px solid var(--purple-light);
+            z-index: 100;
+        }
+
+        .taskbar-title {
+            font-size: 14px;
+            color: var(--white);
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px var(--purple-light);
+        }
+
+        .taskbar-controls {
+            display: flex;
+            gap: 10px;
+        }
+
+        .taskbar-control {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--white);
+            opacity: 0.7;
+        }
+
+        /* Container de ícones */
+        .icons-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 20px;
+            padding-top: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        /* Ícones de pastas */
+        .folder-icon {
+            width: 100px;
+            height: 100px;
+            background-color: rgba(42, 10, 74, 0.7);
+            border: 1px solid var(--purple-light);
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            position: relative;
+            overflow: hidden;
+            text-decoration: none;
+        }
+
+        .folder-icon::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg,
+                    transparent,
+                    rgba(255, 255, 255, 0.2),
+                    transparent);
+            transition: all 0.5s ease;
+        }
+
+        .folder-icon:hover::before {
+            left: 100%;
+        }
+
+        .folder-icon:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px var(--purple-light);
+        }
+
+        .folder-icon.locked {
+            background-color: rgba(30, 30, 30, 0.9);
+            border: 1px dashed var(--purple-light);
+        }
+
+        .folder-icon i {
+            font-size: 40px;
+            color: var(--white);
+            margin-bottom: 10px;
+        }
+
+        .folder-name {
+            color: var(--white);
+            font-size: 12px;
+            text-align: center;
+            text-shadow: 0 0 5px var(--purple-dark);
+        }
+
+        /* Modal para janelas de conteúdo */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 80%;
+            background-color: var(--dark-gray);
+            border: 1px solid var(--purple-light);
+            box-shadow: 0 0 20px rgba(147, 112, 219, 0.5);
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .modal-header {
+            background-color: var(--purple-dark);
+            padding: 8px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--purple-light);
+        }
+
+        .modal-title {
+            color: var(--white);
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .modal-close {
+            color: var(--white);
+            background: none;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .modal-content {
+            padding: 20px;
+            height: calc(100% - 37px);
+            overflow-y: auto;
+            color: var(--white);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* Estilos específicos para seções */
+        .diary-entry {
+            margin-bottom: 30px;
+            border-bottom: 1px dashed var(--purple-light);
+            padding-bottom: 20px;
+        }
+
+        .diary-date {
+            color: var(--purple-light);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .diary-text {
+            font-family: 'Lucida Handwriting', cursive, sans-serif;
+            line-height: 1.8;
+        }
+
+        .locked-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            text-align: center;
+        }
+
+        .locked-content i {
+            font-size: 50px;
+            color: var(--purple-light);
+            margin-bottom: 20px;
+        }
+
+        .password-input {
+            background-color: rgba(42, 10, 74, 0.7);
+            border: 1px solid var(--purple-light);
+            padding: 10px 15px;
+            color: var(--white);
+            font-size: 14px;
+            width: 250px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .unlock-button {
+            background-color: var(--purple-medium);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .unlock-button:hover {
+            background-color: var(--purple-light);
+        }
+
+        .video-item {
+            margin-bottom: 30px;
+            border: 1px solid var(--purple-light);
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .video-title {
+            color: var(--purple-light);
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+
+        .video-placeholder {
+            width: 100%;
+            height: 240px;
+            background-color: #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 14px;
+        }
+
+        .leaked-files {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .leaked-file {
+            border: 1px solid var(--purple-light);
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+        }
+
+        .file-preview {
+            width: 100%;
+            height: 150px;
+            background-color: #111;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .file-name {
+            color: var(--purple-light);
+            font-size: 12px;
+            text-align: center;
+        }
+
+        /* Estilos para efeitos */
+        .glitch-text {
+            position: relative;
+            animation: glitch 3s infinite;
+        }
+
+        @keyframes glitch {
+            0% {
+                text-shadow: none;
+            }
+
+            20% {
+                text-shadow: -2px 0 var(--purple-light), 2px 0 var(--purple-light);
+            }
+
+            21% {
+                text-shadow: none;
+            }
+
+            60% {
+                text-shadow: none;
+            }
+
+            61% {
+                text-shadow: 2px 0 var(--purple-light), -2px 0 var(--purple-light);
+            }
+
+            62% {
+                text-shadow: none;
+            }
+
+            90% {
+                text-shadow: none;
+            }
+
+            91% {
+                text-shadow: -1px 0 var(--purple-light), 1px 0 var(--purple-light);
+            }
+
+            92% {
+                text-shadow: none;
+            }
+        }
+
+        .about-me-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+        }
+
+        /* Modal para visualizar arquivos */
+        .file-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .file-modal-content {
+            max-width: 80%;
+            max-height: 80%;
+            position: relative;
+        }
+
+        .file-modal-close {
+            position: absolute;
+            top: -30px;
+            right: 0;
+            color: var(--white);
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Formulário do WhatsApp */
+        .whatsapp-form {
+            width: 300px;
+            text-align: center;
+        }
+
+        .whatsapp-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            background-color: rgba(42, 10, 74, 0.7);
+            border: 1px solid var(--purple-light);
+            color: var(--white);
+        }
+
+        .whatsapp-form button {
+            background-color: var(--purple-medium);
+            color: var(--white);
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+
+        /* Cursor personalizado */
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: rgba(147, 112, 219, 0.5);
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            z-index: 9999;
+            mix-blend-mode: difference;
+        }
+
+        /* Mensagem de boas-vindas */
+        .welcome-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid var(--purple-light);
+            padding: 30px;
+            max-width: 500px;
+            text-align: center;
+            z-index: 9999;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .welcome-title {
+            color: var(--purple-light);
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-family: 'Courier New', monospace;
+            text-shadow: 0 0 5px var(--purple-light);
+        }
+
+        .welcome-text {
+            color: var(--white);
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .enter-button {
+            background-color: var(--purple-medium);
+            color: var(--white);
+            border: none;
+            padding: 10px 30px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .enter-button:hover {
+            background-color: var(--purple-light);
+            transform: scale(1.05);
+        }
+
+        /* Add this to your style section */
+        .mute-button {
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .mute-button:hover {
+            color: var(--purple-light);
+        }
+
+        /* Adicione estes estilos à seção de estilos existente */
+        .photo-gallery-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            overflow-y: auto;
+        }
+
+        .gallery-header {
+            background-color: var(--purple-dark);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--purple-light);
+        }
+
+        .gallery-header h2 {
+            color: var(--white);
+            font-size: 20px;
+            text-shadow: 0 0 5px var(--purple-light);
+        }
+
+        .gallery-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .gallery-content {
+            padding: 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            border: 1px solid var(--purple-light);
+            background-color: rgba(42, 10, 74, 0.7);
+            padding: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 15px var(--purple-light);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(30%);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(0%);
+        }
+
+        .photo-caption {
+            padding: 10px;
+            color: var(--white);
+            font-size: 12px;
+            text-align: center;
+            background-color: rgba(42, 10, 74, 0.8);
+            border-top: 1px solid var(--purple-light);
+        }
+
+        /* Adicione um botão para a galeria na barra de tarefas */
+        .gallery-button {
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 14px;
+            margin-left: 10px;
+        }
+
+        .gallery-button:hover {
+            color: var(--purple-light);
+        }
+
+        /* Adicione estes estilos à seção de estilos existente */
+
+        /* Layout de dashboard */
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 1fr 2fr 1fr;
+            gap: 15px;
+            padding: 45px 15px 15px;
+            height: calc(100vh - 30px);
+            overflow: hidden;
+        }
+
+        .dashboard-column {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            height: 100%;
+            overflow-y: auto;
+            padding-right: 5px;
+        }
+
+        .dashboard-column::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .dashboard-column::-webkit-scrollbar-thumb {
+            background-color: var(--purple-light);
+            border-radius: 5px;
+        }
+
+        .dashboard-panel {
+            background-color: rgba(30, 30, 30, 0.8);
+            border: 1px solid var(--purple-light);
+            border-radius: 5px;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .dashboard-panel:hover {
+            box-shadow: 0 0 15px rgba(147, 112, 219, 0.5);
+        }
+
+        .panel-header {
+            background-color: var(--purple-dark);
+            padding: 10px 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--purple-light);
+        }
+
+        .panel-header h3 {
+            color: var(--white);
+            font-size: 14px;
+            margin: 0;
+            font-weight: bold;
+            letter-spacing: 1px;
+        }
+
+        .expand-button {
+            background: none;
+            border: none;
+            color: var(--white);
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .expand-button:hover {
+            color: var(--purple-light);
+        }
+
+        .panel-content {
+            padding: 15px;
+        }
+
+        .scrollable {
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .scrollable::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        .scrollable::-webkit-scrollbar-thumb {
+            background-color: var(--purple-light);
+            border-radius: 5px;
+        }
+
+        /* Estilos específicos para painéis */
+        .about-panel {
+            flex: 0 0 auto;
+        }
+
+        .profile-section {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .profile-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid var(--purple-light);
+            object-fit: cover;
+        }
+
+        .profile-info {
+            font-size: 12px;
+            line-height: 1.5;
+        }
+
+        .status-missing {
+            color: red;
+            font-weight: bold;
+        }
+
+        .quote-section {
+            font-style: italic;
+            text-align: center;
+            padding: 10px;
+            border-top: 1px dashed var(--purple-light);
+            font-size: 12px;
+        }
+
+        .diary-panel {
+            flex: 1 1 auto;
+        }
+
+        .diary-entry-preview {
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--purple-light);
+        }
+
+        .diary-entry-preview:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .diary-date {
+            color: var(--purple-light);
+            font-size: 12px;
+            margin-bottom: 5px;
+        }
+
+        .diary-text {
+            font-size: 12px;
+            line-height: 1.5;
+            font-family: 'Lucida Handwriting', cursive, sans-serif;
+        }
+
+        .diary-text a {
+            color: var(--purple-light);
+            text-decoration: none;
+            margin-left: 5px;
+        }
+
+        .warning-panel {
+            padding: 20px;
+            text-align: center;
+            background-color: rgba(42, 10, 74, 0.7);
+        }
+
+        .warning-panel h2 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: var(--white);
+            letter-spacing: 2px;
+        }
+
+        .warning-panel p {
+            font-size: 14px;
+            margin-bottom: 10px;
+            line-height: 1.5;
+        }
+
+        .gallery-panel {
+            flex: 1 1 auto;
+        }
+
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .photo-item {
+            position: relative;
+            cursor: pointer;
+            overflow: hidden;
+            border: 1px solid var(--purple-light);
+            transition: all 0.3s ease;
+        }
+
+        .photo-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 10px var(--purple-light);
+        }
+
+        .photo-item img {
+            width: 100%;
+            height: 120px;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(30%);
+            transition: all 0.3s ease;
+        }
+
+        .photo-item:hover img {
+            filter: grayscale(0%);
+        }
+
+        .photo-caption {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: rgba(42, 10, 74, 0.8);
+            color: var(--white);
+            padding: 5px;
+            font-size: 10px;
+            text-align: center;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-item:hover .photo-caption {
+            transform: translateY(0);
+        }
+
+        .video-panel {
+            flex: 0 0 auto;
+        }
+
+        .video-preview {
+            cursor: pointer;
+            border: 1px solid var(--purple-light);
+            background-color: rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .video-preview:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 10px var(--purple-light);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            height: 150px;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-button {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            background-color: rgba(42, 10, 74, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            opacity: 0.8;
+            transition: all 0.3s ease;
+        }
+
+        .video-preview:hover .play-button {
+            opacity: 1;
+            background-color: var(--purple-medium);
+        }
+
+        .video-info {
+            padding: 10px;
+        }
+
+        .video-title {
+            font-size: 12px;
+            color: var(--purple-light);
+            margin-bottom: 5px;
+        }
+
+        .video-date {
+            font-size: 10px;
+            color: var(--white);
+            opacity: 0.7;
+        }
+
+        .files-panel {
+            flex: 1 1 auto;
+        }
+
+        .files-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .file-item {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--purple-light);
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            background-color: rgba(42, 10, 74, 0.7);
+            transform: scale(1.05);
+        }
+
+        .file-icon {
+            font-size: 24px;
+            color: var(--purple-light);
+            margin-bottom: 10px;
+        }
+
+        .file-name {
+            font-size: 10px;
+            text-align: center;
+            word-break: break-word;
+        }
+
+        .locked-panel {
+            flex: 0 0 auto;
+        }
+
+        .locked-preview {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .locked-preview i {
+            font-size: 30px;
+            color: var(--purple-light);
+            margin-bottom: 15px;
+        }
+
+        .locked-preview p {
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+
+        .password-input {
+            background-color: rgba(42, 10, 74, 0.7);
+            border: 1px solid var(--purple-light);
+            padding: 8px 12px;
+            color: var(--white);
+            font-size: 12px;
+            width: 100%;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .unlock-button {
+            background-color: var(--purple-medium);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+            width: 100%;
+        }
+
+        .unlock-button:hover {
+            background-color: var(--purple-light);
+        }
+
+        .password-hint {
+            font-size: 10px;
+            color: var(--purple-light);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .contact-panel {
+            flex: 0 0 auto;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            background-color: rgba(42, 10, 74, 0.7);
+            border: 1px solid var(--purple-light);
+            padding: 8px 12px;
+            color: var(--white);
+            font-size: 12px;
+        }
+
+        .contact-form textarea {
+            height: 80px;
+            resize: none;
+        }
+
+        .contact-form button {
+            background-color: var(--purple-medium);
+            color: var(--white);
+            border: none;
+            padding: 8px 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 12px;
+        }
+
+        .contact-form button:hover {
+            background-color: var(--purple-light);
+        }
+
+        /* Galeria de fotos em tela cheia */
+        .fullscreen-gallery {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            z-index: 9999;
+            overflow-y: auto;
+        }
+
+        .gallery-header {
+            background-color: var(--purple-dark);
+            padding: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--purple-light);
+        }
+
+        .gallery-header h2 {
+            color: var(--white);
+            font-size: 18px;
+            text-shadow: 0 0 5px var(--purple-light);
+        }
+
+        .gallery-close {
+            background: none;
+            border: none;
+            color: var(--white);
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .gallery-content {
+            padding: 20px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .gallery-item {
+            border: 1px solid var(--purple-light);
+            background-color: rgba(42, 10, 74, 0.7);
+            padding: 10px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 15px var(--purple-light);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(30%);
+            transition: all 0.3s ease;
+        }
+
+        .gallery-item:hover img {
+            filter: grayscale(0%);
+        }
+
+        /* Visualizador de foto ampliada */
+        .photo-viewer {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 10000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .photo-viewer-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .photo-viewer-close {
+            position: absolute;
+            top: -30px;
+            right: 0;
+            color: var(--white);
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .photo-viewer-image {
+            max-width: 100%;
+            max-height: 80vh;
+            border: 2px solid var(--purple-light);
+        }
+
+        .photo-viewer-caption {
+            color: var(--white);
+            text-align: center;
+            padding: 10px;
+            background-color: rgba(42, 10, 74, 0.8);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        /* Adicione estes estilos à seção de estilos existente */
+.folders-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.folder-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.folder-item:hover {
+    background-color: rgba(42, 10, 74, 0.5);
+    transform: translateY(-5px);
+}
+
+.folder-icon-container {
+    width: 60px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 8px;
+}
+
+.folder-item .fa-folder {
+    font-size: 48px;
+    color: #f9d71c; /* Cor amarela para as pastas */
+    filter: drop-shadow(0 0 3px rgba(249, 215, 28, 0.5));
+    transition: all 0.3s ease;
+}
+
+.folder-item:hover .fa-folder {
+    color: #ffeb3b; /* Amarelo mais brilhante ao passar o mouse */
+    filter: drop-shadow(0 0 5px rgba(249, 215, 28, 0.8));
+    transform: scale(1.1);
+}
+
+.folder-name {
+    font-size: 12px;
+    text-align: center;
+    color: var(--white);
+}
+
+/* Estilos para o conteúdo da pasta quando aberta */
+.folder-content {
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.folder-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.folder-back {
+    background: none;
+    border: none;
+    color: var(--purple-light);
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+}
+
+.folder-back:hover {
+    background-color: rgba(147, 112, 219, 0.2);
+}
+
+.folder-title {
+    margin-left: 10px;
+    font-size: 14px;
+    color: #f9d71c;
+}
+
+.files-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+}
+
+.file-item {
+    background-color: rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--purple-light);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.file-item:hover {
+    background-color: rgba(42, 10, 74, 0.7);
+    transform: scale(1.05);
+}
+
+.file-icon {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.file-icon .fa-file-image {
+    color: #4fc3f7; /* Azul para imagens */
+}
+
+.file-icon .fa-file-pdf {
+    color: #f44336; /* Vermelho para PDFs */
+}
+
+.file-icon .fa-file-alt {
+    color: #4caf50; /* Verde para documentos de texto */
+}
+
+.file-icon .fa-file-audio {
+    color: #ff9800; /* Laranja para arquivos de áudio */
+}
+
+.file-name {
+    font-size: 10px;
+    text-align: center;
+    word-break: break-word;
+}
+
+/* Estilo para o modal de arquivos */
+#filesModal .modal-content {
+    padding: 0;
+}
+
+.files-modal-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.files-modal-header {
+    background-color: var(--purple-dark);
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--purple-light);
+}
+
+.files-modal-title {
+    color: #f9d71c;
+    font-size: 16px;
+    margin-left: 10px;
+}
+
+.files-modal-content {
+    padding: 20px;
+    flex: 1;
+    overflow-y: auto;
+}
+/* Substitua os estilos anteriores de efeito de entrada por estes */
+
+/* Efeito de entrada para os painéis com flutuação e giro */
+.dashboard-panel {
+    opacity: 0;
+    transform: translate(calc(100px - 200px * var(--random-x)), calc(100px - 200px * var(--random-y))) 
+               rotate(calc(var(--random-rotate) * 90deg)) scale(0.7);
+    transition: opacity 0.8s ease, transform 1.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    overflow: hidden;
+}
+
+.dashboard-panel.appear {
+    opacity: 1;
+    transform: translate(0, 0) rotate(0deg) scale(1);
+}
+
+/* Efeito de brilho ao aparecer */
+.dashboard-panel::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(147, 112, 219, 0.3), transparent);
+    transition: left 0.8s ease;
+}
+
+.dashboard-panel.appear::after {
+    left: 100%;
+}
+
+
+        /* Responsividade */
+        @media (max-width: 1200px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .right-column {
+                grid-column: span 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .left-column,
+            .center-column,
+            .right-column {
+                grid-column: span 1;
+            }
+        }
+        /* Adicione estes estilos à sua seção de estilos existente */
+
+/* Mensagem para girar o dispositivo */
+.rotate-device-message {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(42, 10, 74, 0.9);
+    border: 1px solid var(--purple-light);
+    border-radius: 10px;
+    padding: 15px;
+    z-index: 10000;
+    width: 90%;
+    max-width: 300px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    animation: fadeInUp 0.5s ease;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 20px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+.rotate-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: var(--purple-light);
+}
+
+.rotate-icon i {
+    margin: 0 5px;
+}
+
+.rotate-device-message p {
+    color: var(--white);
+    margin-bottom: 15px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.rotate-device-message button {
+    background-color: var(--purple-medium);
+    color: var(--white);
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.rotate-device-message button:hover {
+    background-color: var(--purple-light);
+}
+
+/* Ajustes adicionais para melhorar a responsividade */
+@media (max-width: 768px) {
+    body, html {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: auto;
+        min-height: 100%;
+    }
+    
+    .desktop {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: auto;
+        min-height: 100vh;
+    }
+    
+    .dashboard-layout {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 15px;
+        padding-top: 40px;
+        height: auto;
+    }
+    
+    .dashboard-column {
+        height: auto;
+        overflow-y: visible;
+    }
+    
+    /* Ajuste para orientação paisagem em dispositivos móveis */
+    @media (orientation: landscape) {
+        .dashboard-layout {
+            grid-template-columns: 1fr 1fr;
+        }
+        
+        .warning-panel {
+            grid-column: span 2;
+        }
+    }
+}
+/* Adicione estes estilos à sua seção de estilos existente */
+
+/* Estilos específicos para orientação paisagem em dispositivos móveis */
+.landscape-mode .dashboard-layout {
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 10px;
+    padding: 40px 10px 10px;
+}
+
+.landscape-mode .dashboard-panel {
+    margin-bottom: 10px;
+}
+
+/* Para telas muito pequenas em paisagem */
+@media (max-height: 500px) and (orientation: landscape) {
+    .landscape-mode .dashboard-layout {
+        grid-template-columns: 1fr 1fr 1fr;
+        padding-top: 35px;
+    }
+    
+    .landscape-mode .panel-header {
+        padding: 5px 10px;
+    }
+    
+    .landscape-mode .panel-content {
+        padding: 10px;
+    }
+    
+    .landscape-mode .warning-panel {
+        padding: 10px;
+    }
+    
+    .landscape-mode .warning-panel h2 {
+        font-size: 16px;
+        margin-bottom: 10px;
+    }
+    
+    .landscape-mode .warning-panel p {
+        font-size: 12px;
+        margin-bottom: 5px;
+    }
+}
+
+/* Estilos específicos para orientação retrato em dispositivos móveis */
+.portrait-mode .dashboard-layout {
+    grid-template-columns: 1fr;
+    padding-top: 40px;
+}
+
+.portrait-mode .dashboard-column {
+    height: auto;
+    overflow-y: visible;
+}
+
+/* Ajustes gerais para melhorar a responsividade */
+@media (max-width: 768px) {
+    body, html {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: auto;
+        min-height: 100%;
+    }
+    
+    .desktop {
+        overflow-x: hidden;
+        overflow-y: auto;
+        height: auto;
+        min-height: 100vh;
+    }
+}
+
+/* Ajuste para garantir que o conteúdo seja visível em todas as orientações */
+.dashboard-column {
+    height: auto;
+    min-height: 100px;
+    max-height: none;
+}
+
+/* Ajuste para o modal em tela cheia em dispositivos móveis */
+@media (max-width: 768px) {
+    .modal {
+        width: 95%;
+        height: 90%;
+        top: 35px;
+    }
+    
+    .landscape-mode .modal {
+        width: 90%;
+        height: 85%;
+    }
+}
+
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Add this right after the <body> tag -->
+    <audio id="backgroundAudio" loop>
+        <source src="audio/horror-258261.mp3" type="audio/mpeg">
+    </audio>
+
+    <audio id="glitchAudio">
+        <source src="audio/glitch-sound.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Mensagem de boas-vindas -->
+    <div class="welcome-message" id="welcomeMessage">
+        <h1 class="welcome-title glitch-text">ATENÇÃO</h1>
+        <p class="welcome-text">Você está prestes a acessar o blog pessoal de Blair Sinclair, desaparecida desde 5 de
+            outubro de 2023. Este conteúdo não deveria estar disponível ao público.</p>
+        <p class="welcome-text">Ao continuar, você aceita a responsabilidade por qualquer consequência que possa surgir
+            da sua investigação.</p>
+        <button class="enter-button" id="enterButton">Entrar</button>
+    </div>
+
+    <!-- Desktop principal -->
+    <!-- Substitua a div "desktop" existente por esta nova estrutura -->
+    <div class="desktop" id="mainDesktop" style="display: none;">
+        <!-- Barra de tarefas -->
+        <div class="taskbar">
+            <div class="taskbar-title">BLAIR_S_TERMINAL</div>
+            <div class="taskbar-controls">
+                <div class="taskbar-control"></div>
+                <div class="taskbar-control"></div>
+                <div class="taskbar-control"></div>
+                <button id="muteButton" class="mute-button"><i class="fas fa-volume-up"></i></button>
+                <button id="galleryButton" class="gallery-button" onclick="toggleFullscreenGallery()">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Layout de dashboard -->
+        <div class="dashboard-layout">
+            <!-- Coluna da esquerda - Informações pessoais e diário -->
+            <div class="dashboard-column left-column">
+                <!-- Seção Sobre Mim -->
+                <div class="dashboard-panel about-panel">
+                    <div class="panel-header">
+                        <h3>Blair Sinclair</h3>
+                    </div>
+                    <div class="panel-content">
+                        <div class="profile-section">
+                            <img src="img/Blair-log-Photoroom.png"
+                                alt="Blair Sinclair" class="profile-image">
+                            <div class="profile-info">
+                                <p>17 anos | Lakewood High School</p>
+                                <p>Aspirante a jornalista</p>
+                                <p class="status-text">Status: <span class="status-missing">DESAPARECIDA</span></p>
+                                <p class="status-date">Desde: 05/10/2023</p>
+                            </div>
+                        </div>
+                        <div class="quote-section">
+                            <p>"A verdade está lá fora, só precisamos ter coragem para encontrá-la."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seção Diário -->
+                <div class="dashboard-panel diary-panel">
+                    <div class="panel-header">
+                        <h3>Diário</h3>
+                        <button class="expand-button" onclick="openModal('diaryModal')">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                    <div class="panel-content scrollable">
+                        <div class="diary-entry-preview">
+                            <div class="diary-date">04/10/2023</div>
+                            <div class="diary-text">
+                                É real. Tudo é real. Não estou louca. Encontrei a última peça do quebra-cabeça. Se algo
+                                acontecer comigo, tudo que descobri está guardado...
+                                <a href="#" onclick="openModal('diaryModal')">Ler mais</a>
+                            </div>
+                        </div>
+                        <div class="diary-entry-preview">
+                            <div class="diary-date">03/10/2023</div>
+                            <div class="diary-text">
+                                Alguém invadiu meu quarto. Tenho certeza. Nada foi levado, mas as coisas não estão no
+                                mesmo lugar...
+                                <a href="#" onclick="openModal('diaryModal')">Ler mais</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna central - Galeria de fotos e vídeos -->
+            <div class="dashboard-column center-column">
+                <!-- Mensagem principal -->
+                <div class="dashboard-panel warning-panel">
+                    <h2 class="glitch-text">SE VOCÊ ESTÁ LENDO ISSO, EU JÁ DESAPARECI</h2>
+                    <p>Deixei este blog como um rastro digital para o caso de algo acontecer comigo.</p>
+                    <p>Não confie em ninguém do Lakewood High School.<br>
+                        Especialmente não confie em <span style="text-decoration: line-through;">████████</span></p>
+                </div>
+
+                <!-- Galeria de fotos -->
+                <div class="dashboard-panel gallery-panel">
+                    <div class="panel-header">
+                        <h3>Fotos</h3>
+                        <button class="expand-button" onclick="openPhotoGallery()">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                    <div class="panel-content">
+                        <div class="photo-grid">
+                            <div class="photo-item" onclick="viewPhoto(this)">
+                                <img src="img/img-lago.png" alt="Floresta">
+                                <div class="photo-caption">Floresta próxima ao lago</div>
+                            </div>
+                            <div class="photo-item" onclick="viewPhoto(this)">
+                                <img src="img/mapa-localizacao.png"
+                                    alt="Casa abandonada">
+                                <div class="photo-caption">Casa abandonada na Elm Street</div>
+                            </div>
+                            <div class="photo-item" onclick="viewPhoto(this)">
+                                <img src="img/ChatGPT Image 7 de abr. de 2025, 15_41_06.png" alt="Amigos">
+                                <div class="photo-caption">Eu, Sarah e Jake</div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vídeos -->
+                <div class="dashboard-panel video-panel">
+                    <div class="panel-header">
+                        <h3>Vídeos</h3>
+                        <button class="expand-button" onclick="openModal('videosModal')">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                    </div>
+                    <div class="panel-content">
+                        <div class="video-preview" onclick="openModal('videosModal')">
+                            <div class="video-thumbnail">
+                                <img src="videos/videoplayback.mp4" alt="Último vídeo">
+                                <div class="play-button"><i class="fas fa-play"></i></div>
+                            </div>
+                            <div class="video-info">
+                                <div class="video-title">último_dia.mp4</div>
+                                <div class="video-date">04/10/2023</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coluna da direita - Arquivos e arquivo bloqueado -->
+            <div class="dashboard-column right-column">
+                <!-- Arquivos vazados -->
+                <!-- Substitua a div "files-panel" existente por esta versão atualizada -->
+<div class="dashboard-panel files-panel">
+    <div class="panel-header">
+        <h3>Arquivos Vazados</h3>
+        <button class="expand-button" onclick="openModal('filesModal')">
+            <i class="fas fa-expand"></i>
+        </button>
+    </div>
+    <div class="panel-content">
+        <div class="folders-grid">
+            <div class="folder-item" onclick="openFolder('evidencias')">
+                <div class="folder-icon-container">
+                    <i class="fas fa-folder"></i>
+                </div>
+                <div class="folder-name">Evidências</div>
+            </div>
+            <div class="folder-item" onclick="openFolder('sarah')">
+                <div class="folder-icon-container">
+                    <i class="fas fa-folder"></i>
+                </div>
+                <div class="folder-name">Sarah_Caso</div>
+            </div>
+            <div class="folder-item" onclick="openFolder('lakewood')">
+                <div class="folder-icon-container">
+                    <i class="fas fa-folder"></i>
+                </div>
+                <div class="folder-name">Lakewood_1998</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+                <!-- Arquivo bloqueado -->
+                <div class="dashboard-panel locked-panel">
+                    <div class="panel-header">
+                        <h3>arquivo_b [BLOQUEADO]</h3>
+                    </div>
+                    <div class="panel-content">
+                        <div class="locked-preview">
+                            <i class="fas fa-lock"></i>
+                            <p>Este arquivo está protegido por senha</p>
+                            <input type="password" class="password-input" id="dashboardPasswordInput"
+                                placeholder="Senha">
+                            <button class="unlock-button" onclick="checkDashboardPassword()">Desbloquear</button>
+                            <p class="password-hint">Dica: "A data que tudo começou, invertida."</p>
+                        </div>
+                    </div>
+                </div>
+
+               
+            </div>
+        </div>
+    </div>
+
+    <!-- Adicione esta div após a div "desktop" e antes das janelas modais -->
+    <div class="photo-gallery-overlay" id="photoGalleryOverlay">
+        <div class="gallery-header">
+            <h2>Galeria de Fotos de Blair</h2>
+            <button class="gallery-close" onclick="closePhotoGallery()">&times;</button>
+        </div>
+
+        <div class="gallery-content">
+            <div class="gallery-grid">
+                <!-- Fotos da Blair -->
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/300x400/?portrait,girl,dark" alt="Blair Sinclair">
+                    <div class="photo-caption">Blair, verão de 2023</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/300x400/?portrait,girl,mystery" alt="Blair na escola">
+                    <div class="photo-caption">Último dia de aula, Lakewood High</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/300x400/?forest,dark" alt="Floresta">
+                    <div class="photo-caption">Floresta próxima ao lago - Onde encontrei o primeiro símbolo</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/300x400/?abandoned,house" alt="Casa abandonada">
+                    <div class="photo-caption">Casa abandonada na Elm Street</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/300x400/?friends,group" alt="Amigos">
+                    <div class="photo-caption">Eu, Sarah e Jake - Maio 2023</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/300x400/?lake,night" alt="Lago à noite">
+                    <div class="photo-caption">Lago Lakewood - Noite da festa</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/300x400/?symbol,occult" alt="Símbolo estranho">
+                    <div class="photo-caption">Símbolo encontrado na casa abandonada</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://source.unsplash.com/random/300x400/?girl,shadow" alt="Última foto">
+                    <div class="photo-caption">Última selfie - 04/10/2023</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Janela modal Home -->
+    <div class="modal" id="homeModal">
+        <div class="modal-header">
+            <div class="modal-title">Home.txt</div>
+            <button class="modal-close" onclick="closeModal('homeModal')">&times;</button>
+        </div>
+        <div class="modal-content">
+            <h2 class="glitch-text" style="font-size: 28px; margin-bottom: 30px; text-align: center;">SE VOCÊ ESTÁ LENDO
+                ISSO, EU JÁ DESAPARECI</h2>
+
+            <p style="margin-bottom: 20px; text-align: center;">
+                Deixei este blog como um rastro digital para o caso de algo acontecer comigo.
+            </p>
+
+            <p style="margin-bottom: 20px; text-align: center;">
+                Não confie em ninguém do Lakewood High School.<br>
+                Especialmente não confie em <span style="text-decoration: line-through;">████████</span>
+            </p>
+
+            <p style="margin-bottom: 20px; text-align: center; font-style: italic;">
+                "Alguns segredos devem permanecer enterrados, mas a verdade sempre encontra um caminho."
+            </p>
+
+            <p style="margin-top: 40px; text-align: center; color: var(--purple-light);">
+                Última atualização: 04/10/2023 - 23:47
+            </p>
+        </div>
+    </div>
+
+    <!-- Janela modal Diário -->
+    <div class="modal" id="diaryModal">
+        <div class="modal-header">
+            <div class="modal-title">Diário.doc</div>
+            <button class="modal-close" onclick="closeModal('diaryModal')">&times;</button>
+        </div>
+        <div class="modal-content">
+            <div class="diary-entry">
+                <div class="diary-date">02/09/2023</div>
+                <div class="diary-text">
+                    Recebi outra mensagem hoje. Mesmo número bloqueado. Eles sabem sobre a festa no lago. Como é
+                    possível? Só contei para V. e M. Estou começando a desconfiar que estou sendo observada. Talvez seja
+                    apenas paranoia, mas desde o incidente com Sarah, nada parece normal nesta cidade.
+                </div>
+            </div>
+
+            <div class="diary-entry">
+                <div class="diary-date">15/09/2023</div>
+                <div class="diary-text">
+                    Encontrei um pendrive no meu armário hoje. Não sei como foi parar lá. Tem um arquivo chamado
+                    "verdade_LS.mp4", mas estou com medo de abrir. E se for um vírus? Ou pior? Vou guardar por enquanto.
+                    Talvez mostre para Jake, ele entende dessas coisas.
+                </div>
+            </div>
+
+            <div class="diary-entry">
+                <div class="diary-date">28/09/2023</div>
+                <div class="diary-text">
+                    Acho que descobri algo que não deveria. As datas, os locais, tudo se conecta. Não é coincidência.
+                    Preciso organizar melhor essas informações antes de mostrar para alguém. Se isso for verdade, é
+                    muito mais sério do que imaginei. Vou salvar tudo no arquivo_b com senha. Não confio mais no meu
+                    celular ou em qualquer dispositivo conectado à internet.
+                </div>
+            </div>
+
+            <div class="diary-entry">
+                <div class="diary-date">03/10/2023</div>
+                <div class="diary-text">
+                    Alguém invadiu meu quarto. Tenho certeza. Nada foi levado, mas as coisas não estão no mesmo lugar. O
+                    pendrive continua aqui, graças a Deus. Contei para meus pais, mas eles acham que estou ficando
+                    paranoica com tudo que aconteceu com Sarah. Amanhã vou até a delegacia. O detetive Miller prometeu
+                    me ouvir. Espero que não seja tarde demais.
+                </div>
+            </div>
+
+            <div class="diary-entry">
+                <div class="diary-date">04/10/2023</div>
+                <div class="diary-text">
+                    É real. Tudo é real. Não estou louca. Encontrei a última peça do quebra-cabeça. Se algo acontecer
+                    comigo, tudo que descobri está guardado. A senha é a data que tudo começou, invertida. Você vai
+                    entender se chegar até aqui.
+                    <br><br>
+                    Estou ouvindo barulhos no andar de baixo. Meus pais não deviam voltar até amanhã...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Janela modal Arquivos Vazados -->
+    <div class="modal" id="filesModal">
+        <div class="modal-header">
+            <div class="modal-title">Arquivos Vazados</div>
+            <button class="modal-close" onclick="closeModal('filesModal')">&times;</button>
+        </div>
+        
+        <div class="modal-content">
+            <div class="leaked-files">
+                <div class="leaked-file" onclick="viewFile('arquivo1')">
+                    <div class="file-preview">
+                        <img src="videos/videoplayback.mp4" alt="Chat misterioso" width="100%">
+                    </div>
+                    <div class="file-name">chat_sarah_unknown.jpg</div>
+                </div>
+
+                <div class="leaked-file" onclick="viewFile('arquivo2')">
+                    <div class="file-preview">
+                        <img src="/api/placeholder/200/150" alt="Mapa com marcações" width="100%">
+                    </div>
+                    <div class="file-name">lake_map_marked.jpg</div>
+                </div>
+
+                <div class="leaked-file" onclick="viewFile('arquivo3')">
+                    <div class="file-preview">
+                        <img src="/api/placeholder/200/150" alt="Notícia de jornal" width="100%">
+                    </div>
+                    <div class="file-name">news_clipping_1998.jpg</div>
+                </div>
+
+                <div class="leaked-file" onclick="viewFile('arquivo4')">
+                    <div class="file-preview">
+                        <img src="/api/placeholder/200/150" alt="Bilhete misterioso" width="100%">
+                    </div>
+                    <div class="file-name">note_from_B.jpg</div>
+                </div>
+
+                <div class="leaked-file" onclick="viewFile('arquivo5')">
+                    <div class="file-preview">
+                        <img src="/api/placeholder/200/150" alt="Foto estranha" width="100%">
+                    </div>
+                    <div class="file-name">strange_photo.jpg</div>
+                </div>
+
+                <div class="leaked-file" onclick="viewFile('arquivo6')">
+                    <div class="file-preview">
+                        <img src="/api/placeholder/200/150" alt="Transcrição de áudio" width="100%">
+                    </div>
+                    <div class="file-name">transcript_police.pdf</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Janela modal Vídeos -->
+    <div class="modal" id="videosModal">
+        <div class="modal-header">
+            <div class="modal-title">Vídeos</div>
+            <button class="modal-close" onclick="closeModal('videosModal')">&times;</button>
+        </div>
+        <div class="modal-content">
+            <div class="video-item">
+                <div class="video-title">último_dia.mp4 - 04/10/2023</div>
+                <div class="video-placeholder">
+                    <img src="videos/videoplayback.mp4" alt="placeholder" width="100%">
+                    <!-- Neste espaço estaria o vídeo real -->
+                </div>
+            </div>
+
+            <div class="video-item">
+                <div class="video-title">explicação_pendrive.mp4 - 28/09/2023</div>
+                <div class="video-placeholder">
+                    <img src="/api/placeholder/400/240" alt="placeholder" width="100%">
+                    <!-- Neste espaço estaria o vídeo real -->
+                </div>
+            </div>
+
+            <div class="video-item">
+                <div class="video-title">festa_lago.mp4 - 01/09/2023</div>
+                <div class="video-placeholder">
+                    <img src="/api/placeholder/400/240" alt="placeholder" width="100%">
+                    <!-- Neste espaço estaria o vídeo real -->
+                </div>
+            </div>
+
+            <div class="video-item">
+                <div class="video-title">casa_abandonada.mp4 - 15/08/2023</div>
+                <div class="video-placeholder">
+                    <img src="/api/placeholder/400/240" alt="placeholder" width="100%">
+                    <!-- Neste espaço estaria o vídeo real -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Janela modal Arquivo Bloqueado -->
+    <div class="modal" id="lockedModal">
+        <div class="modal-header">
+            <div class="modal-title">arquivo_b [BLOQUEADO]</div>
+            <button class="modal-close" onclick="closeModal('lockedModal')">&times;</button>
+        </div>
+        <div class="modal-content">
+            <div class="locked-content">
+                <i class="fas fa-lock"></i>
+                <h3 style="margin-bottom: 20px;">Este arquivo está protegido por senha</h3>
+                <p style="margin-bottom: 20px;">Digite a senha para acessar o conteúdo.</p>
+                <input type="password" class="password-input" id="passwordInput" placeholder="Senha">
+                <button class="unlock-button" onclick="checkPassword()">Desbloquear</button>
+                <p style="margin-top: 20px; font-size: 12px; color: var(--purple-light);">Dica: "A data que tudo
+                    começou, invertida."</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Janela modal Sobre Mim -->
+    <div class="modal" id="aboutMeModal">
+        <div class="modal-header">
+            <div class="modal-title">Sobre Mim</div>
+            <button class="modal-close" onclick="closeModal('aboutMeModal')">&times;</button>
+        </div>
+        <div class="modal-content">
+            <div class="about-me-content">
+                <img src="/api/placeholder/200/200" alt="Blair Sinclair"
+                    style="border-radius: 50%; border: 2px solid var(--purple-light); margin-bottom: 20px;">
+
+                <h2 style="margin-bottom: 15px; color: var(--purple-light);">Blair Sinclair</h2>
+
+                <p style="margin-bottom: 10px; text-align: center;">
+                    17 anos | Lakewood High School | Aspirante a jornalista
+                </p>
+
+                <p style="margin-bottom: 20px; text-align: center;">
+                    "A verdade está lá fora, só precisamos ter coragem para encontrá-la."
+                </p>
+
+                <div style="width: 80%; margin: 0 auto; text-align: left;">
+                    <p style="margin-bottom: 15px;">
+                        <strong>Interesses:</strong> Fotografia, investigação, mistérios, true crime, literatura gótica
+                    </p>
+
+                    <p style="margin-bottom: 15px;">
+                        <strong>Contatos:</strong> blair.sinclair@email.com | @blair_sinclair
+                    </p>
+
+                    <p style="margin-bottom: 15px;">
+                        <strong>Status atual:</strong> <span style="color: red;">DESAPARECIDA DESDE 05/10/2023</span>
+                    </p>
+                </div>
+
+                <div class="whatsapp-form" style="margin-top: 30px;">
+                    <h3 style="margin-bottom: 15px;">Tem informações sobre Blair?</h3>
+                    <input type="text" placeholder="Seu nome">
+                    <input type="text" placeholder="Seu contato">
+                    <input type="text" placeholder="Sua mensagem">
+                    <button>Enviar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Janela modal Conteúdo Desbloqueado -->
+    <div class="modal" id="unlockedModal">
+        <div class="modal-header">
+            <div class="modal-title">arquivo_b [DESBLOQUEADO]</div>
+            <button class="modal-close" onclick="closeModal('unlockedModal')">&times;</button>
+        </div>
+        <div class="modal-content">
+            <h2 style="color: var(--purple-light); margin-bottom: 20px; text-align: center;">EVIDÊNCIAS COLETADAS</h2>
+
+            <p style="margin-bottom: 30px; text-align: center; font-style: italic;">
+                Se você está lendo isso, algo aconteceu comigo. Estas são todas as evidências que coletei sobre o
+                desaparecimento de Sarah e os eventos estranhos em Lakewood.
+            </p>
+
+            <div style="margin-bottom: 30px; border: 1px solid var(--purple-light); padding: 20px;">
+                <h3 style="margin-bottom: 15px;">Conexões:</h3>
+                <ul style="list-style-type: disc; padding-left: 20px;">
+                    <li>Sarah desapareceu em 15/07/2023 após investigar a casa abandonada na Elm Street.</li>
+                    <li>O mesmo símbolo encontrado na casa abandonada aparece nos arquivos do caso de 1998.</li>
+                    <li>Três membros do conselho escolar estavam presentes em ambos os incidentes.</li>
+                    <li>O Detetive Miller foi afastado do caso após mencionar a conexão.</li>
+                    <li>A substância encontrada no lago corresponde à descrita no relatório confidencial.</li>
+                </ul>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <h3 style="margin-bottom: 15px;">Cronologia:</h3>
+                <p>10/06/1998 - Primeiro incidente documentado</p>
+                <p>15/06/1998 - Formação do "Comitê de Preservação"</p>
+                <p>22/06/1998 - Fechamento da ala norte da escola</p>
+                <p>30/06/1998 - Desaparecimento de E. Thompson (nunca resolvido)</p>
+                <p>10/06/2023 - 25º aniversário - Rituais observados na floresta</p>
+                <p>15/07/2023 - Desaparecimento de Sarah</p>
+            </div>
+
+            <p style="color: red; text-align: center; margin-bottom: 20px;">
+                A DATA CHAVE É 10/06/1998 - O QUE ACONTECEU NAQUELE DIA?
+            </p>
+
+            <p style="margin-bottom: 30px;">
+                Encontrei referências a um ritual que teria sido realizado no subsolo da escola. Algo deu errado. Os
+                registros foram apagados, mas encontrei menções nos diários do antigo zelador. Ele escreveu sobre "a
+                coisa que eles trouxeram" e como "ela precisa ser alimentada a cada 25 anos".
+            </p>
+
+            <p style="margin-bottom: 20px; text-align: center; font-weight: bold;">
+                Sarah descobriu isso. E agora eu também sei.
+            </p>
+
+            <p style="margin-bottom: 20px; text-align: center;">
+                Se estou certa, o próximo "alimentador" seria escolhido hoje, 04/10/2023.
+            </p>
+
+            <p style="margin-bottom: 20px; text-align: center; color: red;">
+                Acho que eles sabem que eu sei.
+            </p>
+        </div>
+    </div>
+
+    <!-- Modal para visualizar arquivos -->
+    <div class="file-modal" id="fileViewerModal" style="display: none;">
+        <div class="file-modal-content">
+            <button class="file-modal-close" onclick="closeFileViewer()">&times;</button>
+            <img id="fileViewerImage" src="" alt="Arquivo" style="max-width: 100%; max-height: 100%;">
+        </div>
+    </div>
+
+    <!-- Cursor personalizado -->
+    <div class="custom-cursor" id="customCursor"></div>
+    <div class="taskbar-controls">
+        <div class="taskbar-control"></div>
+        <div class="taskbar-control"></div>
+        <div class="taskbar-control"></div>
+        <button id="muteButton" class="mute-button"><i class="fas fa-volume-up"></i></button>
+    </div>
+    
+    <script>
+        // Mostrar desktop após clicar em entrar
+        document.getElementById('enterButton').addEventListener('click', function () {
+            document.getElementById('welcomeMessage').style.display = 'none';
+            document.getElementById('mainDesktop').style.display = 'block';
+        });
+
+        // Funções para abrir e fechar modais
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        // Verificar senha para arquivo bloqueado
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            // A senha é a data invertida: 10/06/1998 -> 89910601
+            if (password === "89910601") {
+                closeModal('lockedModal');
+                openModal('unlockedModal');
+            } else {
+                alert("Senha incorreta. Tente novamente.");
+            }
+        }
+
+        // Visualizar arquivos
+        function viewFile(fileId) {
+            const fileViewerModal = document.getElementById('fileViewerModal');
+            const fileViewerImage = document.getElementById('fileViewerImage');
+
+            // Definir a imagem com base no ID do arquivo
+            fileViewerImage.src = `/api/placeholder/800/600?text=${fileId}`;
+
+            // Mostrar o modal
+            fileViewerModal.style.display = 'flex';
+        }
+
+        // Fechar visualizador de arquivos
+        function closeFileViewer() {
+            document.getElementById('fileViewerModal').style.display = 'none';
+        }
+
+        // Cursor personalizado
+        document.addEventListener('mousemove', function (e) {
+            const cursor = document.getElementById('customCursor');
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Efeito de digitação para textos
+        function typeWriter(element, text, speed) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Iniciar efeitos após carregar a página
+        window.onload = function () {
+            // Adicionar efeitos de glitch aleatórios
+            setInterval(function () {
+                const desktop = document.querySelector('.desktop');
+                desktop.style.filter = `hue-rotate(${Math.random() * 10}deg)`;
+                setTimeout(function () {
+                    desktop.style.filter = 'none';
+                }, 100);
+            }, 5000);
+        };
+
+        // Audio controls
+        let backgroundAudio = document.getElementById('backgroundAudio');
+        let glitchAudio = document.getElementById('glitchAudio');
+
+        // Start background audio when user enters the site
+        document.getElementById('enterButton').addEventListener('click', function () {
+            document.getElementById('welcomeMessage').style.display = 'none';
+            document.getElementById('mainDesktop').style.display = 'block';
+
+            // Start background audio at low volume
+            backgroundAudio.volume = 0.3;
+            backgroundAudio.play().catch(e => console.log("Audio autoplay was prevented: ", e));
+        });
+
+        // Play glitch sound randomly
+        function playRandomGlitch() {
+            if (Math.random() < 0.3) { // 30% chance to play glitch sound
+                glitchAudio.volume = 0.4;
+                glitchAudio.currentTime = 0;
+                glitchAudio.play().catch(e => console.log("Glitch audio play prevented: ", e));
+            }
+        }
+
+        // Play glitch sound when opening modals
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            playRandomGlitch();
+        }
+
+        // Add glitch sound to password check
+        function checkPassword() {
+            const password = document.getElementById('passwordInput').value;
+            // A senha é a data invertida: 10/06/1998 -> 89910601
+            if (password === "89910601") {
+                closeModal('lockedModal');
+                openModal('unlockedModal');
+                // Play a more intense glitch sound when unlocking the secret file
+                glitchAudio.volume = 0.7;
+                glitchAudio.play().catch(e => console.log("Audio play prevented: ", e));
+            } else {
+                alert("Senha incorreta. Tente novamente.");
+                playRandomGlitch();
+            }
+        }
+
+        // Modify the window.onload function to include audio effects with visual glitches
+        window.onload = function () {
+            // Adicionar efeitos de glitch aleatórios
+            setInterval(function () {
+                const desktop = document.querySelector('.desktop');
+                desktop.style.filter = `hue-rotate(${Math.random() * 10}deg)`;
+
+                // Play glitch sound with visual effect
+                playRandomGlitch();
+
+                setTimeout(function () {
+                    desktop.style.filter = 'none';
+                }, 100);
+            }, 5000);
+        };
+        // Add this to your script section
+        // Mute/unmute functionality
+        document.getElementById('muteButton').addEventListener('click', function () {
+            if (backgroundAudio.muted) {
+                backgroundAudio.muted = false;
+                glitchAudio.muted = false;
+                this.innerHTML = '<i class="fas fa-volume-up"></i>';
+            } else {
+                backgroundAudio.muted = true;
+                glitchAudio.muted = true;
+                this.innerHTML = '<i class="fas fa-volume-mute"></i>';
+            }
+        });
+        // Adicione estas funções ao seu script existente
+        function openPhotoGallery() {
+            document.getElementById('photoGalleryOverlay').style.display = 'block';
+            playRandomGlitch(); // Reproduz o som de glitch ao abrir a galeria
+        }
+
+        function closePhotoGallery() {
+            document.getElementById('photoGalleryOverlay').style.display = 'none';
+            playRandomGlitch(); // Reproduz o som de glitch ao fechar a galeria
+        }
+
+        // Adicione também um ícone na área de ícones para abrir a galeria
+        // Adicione este código dentro da div "icons-container"
+        document.addEventListener('DOMContentLoaded', function () {
+            // Criar um novo ícone para a galeria de fotos
+            const folderIcon = document.createElement('div');
+            folderIcon.className = 'folder-icon';
+            folderIcon.onclick = function () { openPhotoGallery(); };
+
+            const icon = document.createElement('i');
+            icon.className = 'fas fa-images';
+
+            const folderName = document.createElement('div');
+            folderName.className = 'folder-name';
+            folderName.textContent = 'Fotos';
+
+            folderIcon.appendChild(icon);
+            folderIcon.appendChild(folderName);
+
+            // Adicionar o ícone ao container
+            const iconsContainer = document.querySelector('.icons-container');
+            iconsContainer.appendChild(folderIcon);
+        });
+    </script>
+    <script>
+        // Adicione estas funções ao seu script existente
+
+        // Função para verificar a senha no dashboard
+        function checkDashboardPassword() {
+            const password = document.getElementById('dashboardPasswordInput').value;
+            // A senha é a data invertida: 15/07/2022 ->
+            if (password === "22020751") {
+                // Abrir o modal com o conteúdo desbloqueado
+                openModal('unlockedModal');
+                // Reproduzir som de glitch
+                playRandomGlitch();
+            } else {
+                alert("Senha incorreta. Tente novamente.");
+                playRandomGlitch();
+            }
+        }
+
+        // Função para visualizar uma foto ampliada
+        function viewPhoto(photoElement) {
+            // Criar o visualizador de foto se não existir
+            if (!document.getElementById('photoViewer')) {
+                const photoViewer = document.createElement('div');
+                photoViewer.id = 'photoViewer';
+                photoViewer.className = 'photo-viewer';
+
+                const content = document.createElement('div');
+                content.className = 'photo-viewer-content';
+
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'photo-viewer-close';
+                closeBtn.innerHTML = '&times;';
+                closeBtn.onclick = closePhotoViewer;
+
+                const img = document.createElement('img');
+                img.className = 'photo-viewer-image';
+                img.id = 'photoViewerImage';
+
+                const caption = document.createElement('div');
+                caption.className = 'photo-viewer-caption';
+                caption.id = 'photoViewerCaption';
+
+                content.appendChild(closeBtn);
+                content.appendChild(img);
+                content.appendChild(caption);
+                photoViewer.appendChild(content);
+
+                document.body.appendChild(photoViewer);
+            }
+
+            // Obter a imagem e legenda do elemento clicado
+            const imgSrc = photoElement.querySelector('img').src;
+            const captionText = photoElement.querySelector('.photo-caption').textContent;
+
+            // Definir a imagem e legenda no visualizador
+            document.getElementById('photoViewerImage').src = imgSrc;
+            document.getElementById('photoViewerCaption').textContent = captionText;
+
+            // Mostrar o visualizador
+            document.getElementById('photoViewer').style.display = 'flex';
+
+            // Reproduzir som de glitch
+            playRandomGlitch();
+        }
+
+        // Função para fechar o visualizador de foto
+        function closePhotoViewer() {
+            document.getElementById('photoViewer').style.display = 'none';
+            playRandomGlitch();
+        }
+
+        // Função para abrir a galeria em tela cheia
+        function openPhotoGallery() {
+            // Criar a galeria em tela cheia se não existir
+            if (!document.getElementById('fullscreenGallery')) {
+                const gallery = document.createElement('div');
+                gallery.id = 'fullscreenGallery';
+                gallery.className = 'fullscreen-gallery';
+
+                const header = document.createElement('div');
+                header.className = 'gallery-header';
+
+                const title = document.createElement('h2');
+                title.textContent = 'Galeria de Fotos de Blair';
+
+                const closeBtn = document.createElement('button');
+                closeBtn.className = 'gallery-close';
+                closeBtn.innerHTML = '&times;';
+                closeBtn.onclick = closePhotoGallery;
+
+                header.appendChild(title);
+                header.appendChild(closeBtn);
+
+                const content = document.createElement('div');
+                content.className = 'gallery-content';
+
+                const grid = document.createElement('div');
+                grid.className = 'gallery-grid';
+
+                // Adicionar as fotos à galeria
+                const photos = [
+                    { src: 'https://source.unsplash.com/random/300x400/?portrait,girl,dark', caption: 'Blair, verão de 2023' },
+                    { src: 'https://source.unsplash.com/random/300x400/?portrait,girl,mystery', caption: 'Último dia de aula, Lakewood High' },
+                    { src: 'https://source.unsplash.com/random/300x400/?forest,dark', caption: 'Floresta próxima ao lago - Onde encontrei o primeiro símbolo' },
+                    { src: 'https://source.unsplash.com/random/300x400/?forest,dark', caption: 'Floresta próxima ao lago - Onde encontrei o primeiro símbolo' },
+                    { src: 'https://source.unsplash.com/random/300x400/?abandoned,house', caption: 'Casa abandonada na Elm Street' },
+                    { src: 'https://source.unsplash.com/random/300x400/?friends,group', caption: 'Eu, Sarah e Jake - Maio 2023' },
+                    { src: 'https://source.unsplash.com/random/300x400/?lake,night', caption: 'Lago Lakewood - Noite da festa' },
+                    { src: 'https://source.unsplash.com/random/300x400/?symbol,occult', caption: 'Símbolo encontrado na casa abandonada' },
+                    { src: 'https://source.unsplash.com/random/300x400/?girl,shadow', caption: 'Última selfie - 04/10/2023' }
+                ];
+
+                photos.forEach(photo => {
+                    const item = document.createElement('div');
+                    item.className = 'gallery-item';
+                    item.onclick = function () { viewPhoto(this); };
+
+                    const img = document.createElement('img');
+                    img.src = photo.src;
+                    img.alt = photo.caption;
+
+                    const caption = document.createElement('div');
+                    caption.className = 'photo-caption';
+                    caption.textContent = photo.caption;
+
+                    item.appendChild(img);
+                    item.appendChild(caption);
+                    grid.appendChild(item);
+                });
+
+                content.appendChild(grid);
+                gallery.appendChild(header);
+                gallery.appendChild(content);
+
+                document.body.appendChild(gallery);
+            }
+
+            // Mostrar a galeria
+            document.getElementById('fullscreenGallery').style.display = 'block';
+
+            // Reproduzir som de glitch
+            playRandomGlitch();
+        }
+
+        // Função para fechar a galeria em tela cheia
+        function closePhotoGallery() {
+            document.getElementById('fullscreenGallery').style.display = 'none';
+            playRandomGlitch();
+        }
+
+        // Função para alternar entre visualização normal e tela cheia da galeria
+        function toggleFullscreenGallery() {
+            const gallery = document.getElementById('fullscreenGallery');
+            if (gallery && gallery.style.display === 'block') {
+                closePhotoGallery();
+            } else {
+                openPhotoGallery();
+            }
+        }
+
+        // Modificar a função de abertura do modal para manter o layout de dashboard visível
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+            playRandomGlitch();
+        }
+
+        // Modificar a função de entrada para mostrar o dashboard diretamente
+        document.getElementById('enterButton').addEventListener('click', function () {
+            document.getElementById('welcomeMessage').style.display = 'none';
+            document.getElementById('mainDesktop').style.display = 'block';
+
+            // Iniciar áudio de fundo com volume baixo
+            if (backgroundAudio) {
+                backgroundAudio.volume = 0.3;
+                backgroundAudio.play().catch(e => console.log("Audio autoplay was prevented: ", e));
+            }
+
+            // Adicionar efeito de glitch inicial
+            const desktop = document.querySelector('.desktop');
+            if (desktop) {
+                desktop.style.filter = `hue-rotate(${Math.random() * 10}deg)`;
+                playRandomGlitch();
+
+                setTimeout(function () {
+                    desktop.style.filter = 'none';
+                }, 100);
+            }
+        });
+
+        // Fechar visualizadores ao pressionar ESC
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') {
+                const photoViewer = document.getElementById('photoViewer');
+                if (photoViewer && photoViewer.style.display === 'flex') {
+                    closePhotoViewer();
+                    return;
+                }
+
+                const gallery = document.getElementById('fullscreenGallery');
+                if (gallery && gallery.style.display === 'block') {
+                    closePhotoGallery();
+                    return;
+                }
+
+                // Fechar modais abertos
+                const modals = document.querySelectorAll('.modal');
+                modals.forEach(modal => {
+                    if (modal.style.display === 'block') {
+                        modal.style.display = 'none';
+                        playRandomGlitch();
+                    }
+                });
+            }
+        });
+
+        // Inicializar efeitos após carregar a página
+        window.onload = function () {
+            // Adicionar efeitos de glitch aleatórios
+            setInterval(function () {
+                const desktop = document.querySelector('.desktop');
+                if (desktop) {
+                    desktop.style.filter = `hue-rotate(${Math.random() * 10}deg)`;
+
+                    // Reproduzir som de glitch com efeito visual
+                    playRandomGlitch();
+
+                    setTimeout(function () {
+                        desktop.style.filter = 'none';
+                    }, 100);
+                }
+            }, 5000);
+
+            // Adicionar efeito de digitação para textos importantes
+            const warningTitle = document.querySelector('.warning-panel h2');
+            if (warningTitle) {
+                const originalText = warningTitle.textContent;
+                typeWriter(warningTitle, originalText, 100);
+            }
+        };
+        // Adicione estas funções ao seu script existente
+
+// Função para abrir uma pasta específica
+function openFolder(folderName) {
+    // Esconder a grade de pastas
+    document.querySelector('.folders-grid').style.display = 'none';
+    
+    // Criar e mostrar o conteúdo da pasta
+    const panelContent = document.querySelector('.files-panel .panel-content');
+    
+    // Remover qualquer conteúdo de pasta existente
+    const existingContent = document.querySelector('.folder-content');
+    if (existingContent) {
+        existingContent.remove();
+    }
+    
+    // Criar novo conteúdo de pasta
+    const folderContent = document.createElement('div');
+    folderContent.className = 'folder-content';
+    folderContent.style.display = 'block';
+    
+    // Cabeçalho da pasta com botão de voltar
+    const folderHeader = document.createElement('div');
+    folderHeader.className = 'folder-header';
+    
+    const backButton = document.createElement('button');
+    backButton.className = 'folder-back';
+    backButton.innerHTML = '<i class="fas fa-arrow-left"></i> Voltar';
+    backButton.onclick = closeFolder;
+    
+    const folderTitle = document.createElement('div');
+    folderTitle.className = 'folder-title';
+    
+    // Definir o título e arquivos com base na pasta selecionada
+    let files = [];
+    
+    switch(folderName) {
+        case 'evidencias':
+            folderTitle.textContent = 'Pasta: Evidências';
+            files = [
+                { name: 'chat_sarah_unknown.jpg', type: 'image', id: 'arquivo1' },
+                { name: 'note_from_B.jpg', type: 'image', id: 'arquivo4' },
+                { name: 'strange_photo.jpg', type: 'image', id: 'arquivo5' },
+                { name: 'gravacao_voz.mp3', type: 'audio', id: 'arquivo7' }
+            ];
+            break;
+        case 'sarah':
+            folderTitle.textContent = 'Pasta: Sarah_Caso';
+            files = [
+                { name: 'ultimo_local.jpg', type: 'image', id: 'arquivo8' },
+                { name: 'depoimento_amigos.pdf', type: 'pdf', id: 'arquivo9' },
+                { name: 'timeline_sarah.txt', type: 'text', id: 'arquivo10' },
+                { name: 'mensagens_recuperadas.jpg', type: 'image', id: 'arquivo11' }
+            ];
+            break;
+        case 'lakewood':
+            folderTitle.textContent = 'Pasta: Lakewood_1998';
+            files = [
+                { name: 'news_clipping_1998.pdf', type: 'pdf', id: 'arquivo3' },
+                { name: 'lake_map_marked.jpg', type: 'image', id: 'arquivo2' },
+                { name: 'transcript_police.pdf', type: 'pdf', id: 'arquivo6' },
+                { name: 'old_school_photo.jpg', type: 'image', id: 'arquivo12' }
+            ];
+            break;
+    }
+    
+    folderHeader.appendChild(backButton);
+    folderHeader.appendChild(folderTitle);
+    folderContent.appendChild(folderHeader);
+    
+    // Lista de arquivos
+    const filesList = document.createElement('div');
+    filesList.className = 'files-list';
+    
+    files.forEach(file => {
+        const fileItem = document.createElement('div');
+        fileItem.className = 'file-item';
+        fileItem.onclick = function() { viewFile(file.id); };
+        
+        const fileIcon = document.createElement('div');
+        fileIcon.className = 'file-icon';
+        
+        let iconClass = '';
+        switch(file.type) {
+            case 'image':
+                iconClass = 'fa-file-image';
+                break;
+            case 'pdf':
+                iconClass = 'fa-file-pdf';
+                break;
+            case 'text':
+                iconClass = 'fa-file-alt';
+                break;
+            case 'audio':
+                iconClass = 'fa-file-audio';
+                break;
+        }
+        
+        fileIcon.innerHTML = `<i class="fas ${iconClass}"></i>`;
+        
+        const fileName = document.createElement('div');
+        fileName.className = 'file-name';
+        fileName.textContent = file.name;
+        
+        fileItem.appendChild(fileIcon);
+        fileItem.appendChild(fileName);
+        filesList.appendChild(fileItem);
+    });
+    
+    folderContent.appendChild(filesList);
+    panelContent.appendChild(folderContent);
+    
+    // Reproduzir som de glitch
+    playRandomGlitch();
+}
+
+// Função para fechar a pasta e voltar à visualização de pastas
+function closeFolder() {
+    // Esconder o conteúdo da pasta
+    const folderContent = document.querySelector('.folder-content');
+    if (folderContent) {
+        folderContent.style.display = 'none';
+    }
+    
+    // Mostrar a grade de pastas
+    document.querySelector('.folders-grid').style.display = 'grid';
+    
+    // Reproduzir som de glitch
+    playRandomGlitch();
+}
+
+// Atualizar a função de visualização de arquivos para o modal de arquivos
+function viewFile(fileId) {
+    // Abrir o modal de arquivos
+    openModal('filesModal');
+    
+    // Configurar o conteúdo do modal
+    const filesModal = document.getElementById('filesModal');
+    
+    // Limpar o conteúdo existente
+    filesModal.querySelector('.modal-content').innerHTML = '';
+    
+    // Criar o container do modal
+    const modalContainer = document.createElement('div');
+    modalContainer.className = 'files-modal-container';
+    
+    // Cabeçalho do modal
+    const modalHeader = document.createElement('div');
+    modalHeader.className = 'files-modal-header';
+    
+    const modalTitle = document.createElement('div');
+    modalTitle.className = 'files-modal-title';
+    modalTitle.textContent = `Arquivo: ${fileId}`;
+    
+    modalHeader.appendChild(modalTitle);
+    modalContainer.appendChild(modalHeader);
+    
+    // Conteúdo do modal
+    const modalContent = document.createElement('div');
+    modalContent.className = 'files-modal-content';
+    
+    // Placeholder para o conteúdo do arquivo
+    const fileContent = document.createElement('div');
+    fileContent.style.textAlign = 'center';
+    
+    const fileImage = document.createElement('img');
+    fileImage.src = `/api/placeholder/800/600?text=${fileId}`;
+    fileImage.alt = fileId;
+    fileImage.style.maxWidth = '100%';
+    fileImage.style.border = '1px solid var(--purple-light)';
+    
+    fileContent.appendChild(fileImage);
+    modalContent.appendChild(fileContent);
+    modalContainer.appendChild(modalContent);
+    
+    filesModal.querySelector('.modal-content').appendChild(modalContainer);
+    
+    // Reproduzir som de glitch
+    playRandomGlitch();
+}
+// Substitua a função animatePanelsEntry por esta versão atualizada
+
+// Função para animar a entrada dos painéis com flutuação e giro
+function animatePanelsEntry() {
+    const panels = document.querySelectorAll('.dashboard-panel');
+    const techSound = document.getElementById('techSound');
+    
+    // Definir valores aleatórios para cada painel
+    panels.forEach(panel => {
+        // Posição X e Y aleatória
+        panel.style.setProperty('--random-x', Math.random());
+        panel.style.setProperty('--random-y', Math.random());
+        
+        // Rotação aleatória: 0, 30 ou 90 graus (positivo ou negativo)
+        const rotations = [0, 1/3, 1]; // 0, 30, 90 graus (como fração de 90)
+        const randomRotation = rotations[Math.floor(Math.random() * rotations.length)];
+        const direction = Math.random() > 0.5 ? 1 : -1; // direção positiva ou negativa
+        
+        panel.style.setProperty('--random-rotate', randomRotation * direction);
+    });
+    
+    // Reproduzir o som tecnológico uma vez para todos os painéis
+    techSound.volume = 0.4;
+    
+    // Adicionar evento para detectar quando o som tecnológico terminar
+    techSound.onended = function() {
+        // Iniciar os sons de horror e glitch após o techSound terminar
+        startHorrorAndGlitchSounds();
+    };
+    
+    // Reproduzir o som tecnológico
+    techSound.play().catch(e => console.log("Audio play prevented: ", e));
+    
+    // Animar cada painel sequencialmente
+    panels.forEach((panel, index) => {
+        setTimeout(() => {
+            // Fazer o painel aparecer
+            panel.classList.add('appear');
+        }, 450 * index); // Intervalo entre cada painel
+    });
+}
+
+// Função para iniciar os sons de horror e glitch
+function startHorrorAndGlitchSounds() {
+    console.log("Tech sound finished, starting horror and glitch sounds");
+    
+    // Iniciar o som de horror com volume baixo
+    const horrorSound = document.getElementById('horrorSound');
+    horrorSound.volume = 0.2;
+    horrorSound.play().catch(e => console.log("Horror sound play prevented: ", e));
+    
+    // Configurar a reprodução periódica do som de glitch
+    scheduleGlitchSounds();
+}
+
+// Função para agendar a reprodução periódica do som de glitch
+function scheduleGlitchSounds() {
+    const glitchSound = document.getElementById('glitchSound');
+    
+    // Função para reproduzir o som de glitch
+    function playGlitch() {
+        // Clone o nó de áudio para permitir sobreposições
+        const glitchClone = glitchSound.cloneNode(true);
+        glitchClone.volume = 0.15 + Math.random() * 0.1; // Volume entre 0.15 e 0.25
+        glitchClone.play().catch(e => console.log("Glitch sound play prevented: ", e));
+        
+        // Aplicar efeito visual de glitch
+        const desktop = document.querySelector('.desktop');
+        if (desktop) {
+            desktop.style.filter = `hue-rotate(${Math.random() * 20}deg)`;
+            setTimeout(() => {
+                desktop.style.filter = 'none';
+            }, 150);
+        }
+        
+        // Agendar o próximo som de glitch após um intervalo aleatório
+        const nextInterval = 5000 + Math.random() * 10000; // Entre 5 e 15 segundos
+        setTimeout(playGlitch, nextInterval);
+    }
+    
+    // Iniciar a primeira reprodução após um pequeno atraso
+    setTimeout(playGlitch, 2000);
+}
+
+// Modificar o evento de clique do botão de entrada
+document.getElementById('enterButton').addEventListener('click', function() {
+    document.getElementById('welcomeMessage').style.display = 'none';
+    document.getElementById('mainDesktop').style.display = 'block';
+    
+    // Iniciar a animação dos painéis após um pequeno atraso
+    setTimeout(animatePanelsEntry, 300);
+});
+// Adicione este código ao final da sua seção de script existente
+
+// Função para ajustar o zoom com base no dispositivo
+function adjustZoom() {
+    // Verifica se é um dispositivo móvel
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // Define a meta tag de viewport para ajustar o zoom
+        const viewport = document.querySelector('meta[name="viewport"]');
+        
+        // Ajusta o zoom com base na orientação
+        if (window.innerWidth < window.innerHeight) {
+            // Modo retrato - zoom um pouco mais afastado para ver mais conteúdo
+            viewport.setAttribute('content', 'width=device-width, initial-scale=0.8, maximum-scale=1.0, user-scalable=yes');
+            
+            // Mostra a mensagem para girar o dispositivo se ainda não estiver visível
+            showRotateDeviceMessage();
+        } else {
+            // Modo paisagem - zoom ideal
+            viewport.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes');
+            
+            // Esconde a mensagem de rotação
+            hideRotateDeviceMessage();
+        }
+    }
+}
+
+
+
+// Função para esconder a mensagem de rotação
+function hideRotateDeviceMessage() {
+    const rotateMsg = document.getElementById('rotateMessage');
+    if (rotateMsg) {
+        rotateMsg.style.display = 'none';
+    }
+}
+
+// Executa o ajuste de zoom quando a página carrega
+document.addEventListener('DOMContentLoaded', adjustZoom);
+
+// Executa o ajuste de zoom quando a orientação muda
+window.addEventListener('orientationchange', adjustZoom);
+window.addEventListener('resize', adjustZoom);
+
+// Adiciona suporte para gestos de pinça para zoom
+document.addEventListener('gesturestart', function(e) {
+    e.preventDefault();
+    // Permite zoom manual com gestos
+    const viewport = document.querySelector('meta[name="viewport"]');
+    viewport.setAttribute('content', 'width=device-width, initial-scale=0.8, maximum-scale=3.0, user-scalable=yes');
+});
+
+
+    </script>
+
+<audio id="techSound" preload="auto">
+    <source src="audio/calculating-101755.mp3" type="audio/mpeg">
+</audio>
+
+
+</body><!-- Add this inside the taskbar div -->
+
+
+</html>
