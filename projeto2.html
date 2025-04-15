@@ -1716,6 +1716,8 @@
         <source src="audio/glitch-sound.mp3" type="audio/mpeg">
     </audio>
 
+    
+
     <!-- Mensagem de boas-vindas -->
     <div class="welcome-message" id="welcomeMessage">
         <h1 class="welcome-title glitch-text">ATENÇÃO</h1>
@@ -1747,27 +1749,7 @@
         <div class="dashboard-layout">
             <!-- Coluna da esquerda - Informações pessoais e diário -->
             <div class="dashboard-column left-column">
-                <!-- Seção Sobre Mim -->
-                <div class="dashboard-panel about-panel">
-                    <div class="panel-header">
-                        <h3>Blair Sinclair</h3>
-                    </div>
-                    <div class="panel-content">
-                        <div class="profile-section">
-                            <img src="img/Blair-log-Photoroom.png"
-                                alt="Blair Sinclair" class="profile-image">
-                            <div class="profile-info">
-                                <p>17 anos | Lakewood High School</p>
-                                <p>Aspirante a jornalista</p>
-                                <p class="status-text">Status: <span class="status-missing">DESAPARECIDA</span></p>
-                                <p class="status-date">Desde: 05/10/2023</p>
-                            </div>
-                        </div>
-                        <div class="quote-section">
-                            <p>"A verdade está lá fora, só precisamos ter coragem para encontrá-la."</p>
-                        </div>
-                    </div>
-                </div>
+                
 
                 <!-- Seção Diário -->
                 <div class="dashboard-panel diary-panel">
@@ -2062,7 +2044,7 @@
             <div class="leaked-files">
                 <div class="leaked-file" onclick="viewFile('arquivo1')">
                     <div class="file-preview">
-                        <img src="videos/videoplayback.mp4" alt="Chat misterioso" width="100%">
+                        <img src="img/foto-suspeito-lago.png" alt="Chat misterioso" width="100%">
                     </div>
                     <div class="file-name">chat_sarah_unknown.jpg</div>
                 </div>
@@ -2165,51 +2147,7 @@
         </div>
     </div>
 
-    <!-- Janela modal Sobre Mim -->
-    <div class="modal" id="aboutMeModal">
-        <div class="modal-header">
-            <div class="modal-title">Sobre Mim</div>
-            <button class="modal-close" onclick="closeModal('aboutMeModal')">&times;</button>
-        </div>
-        <div class="modal-content">
-            <div class="about-me-content">
-                <img src="/api/placeholder/200/200" alt="Blair Sinclair"
-                    style="border-radius: 50%; border: 2px solid var(--purple-light); margin-bottom: 20px;">
-
-                <h2 style="margin-bottom: 15px; color: var(--purple-light);">Blair Sinclair</h2>
-
-                <p style="margin-bottom: 10px; text-align: center;">
-                    17 anos | Lakewood High School | Aspirante a jornalista
-                </p>
-
-                <p style="margin-bottom: 20px; text-align: center;">
-                    "A verdade está lá fora, só precisamos ter coragem para encontrá-la."
-                </p>
-
-                <div style="width: 80%; margin: 0 auto; text-align: left;">
-                    <p style="margin-bottom: 15px;">
-                        <strong>Interesses:</strong> Fotografia, investigação, mistérios, true crime, literatura gótica
-                    </p>
-
-                    <p style="margin-bottom: 15px;">
-                        <strong>Contatos:</strong> blair.sinclair@email.com | @blair_sinclair
-                    </p>
-
-                    <p style="margin-bottom: 15px;">
-                        <strong>Status atual:</strong> <span style="color: red;">DESAPARECIDA DESDE 05/10/2023</span>
-                    </p>
-                </div>
-
-                <div class="whatsapp-form" style="margin-top: 30px;">
-                    <h3 style="margin-bottom: 15px;">Tem informações sobre Blair?</h3>
-                    <input type="text" placeholder="Seu nome">
-                    <input type="text" placeholder="Seu contato">
-                    <input type="text" placeholder="Sua mensagem">
-                    <button>Enviar</button>
-                </div>
-            </div>
-        </div>
-    </div>
+    
 
     <!-- Janela modal Conteúdo Desbloqueado -->
     <div class="modal" id="unlockedModal">
